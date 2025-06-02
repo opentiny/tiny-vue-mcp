@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "next-mcp-server": {
+      "type": "sse",
+      "url": "http://39.108.160.245/sse?sessionId=410cc804-e48e-449c-863f-b704f8d2f6a6"
+    }
+  }
+}
