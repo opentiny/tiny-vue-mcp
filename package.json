@@ -6,9 +6,8 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "pnpm --filter tiny-vue-mcp-docs dev",
-    "test": "pnpm -r test",
-    "lint": "pnpm -r lint",
-    "clean": "pnpm -r clean",
+    "build": "pnpm --filter @opentiny/tiny-vue-mcp build",
+    "pub": "pnpm --filter @opentiny/tiny-vue-mcp publish",
     "format": "prettier --write \"**/*.{ts,tsx,vue,js,jsx,json,md}\""
   },
   "pnpm": {

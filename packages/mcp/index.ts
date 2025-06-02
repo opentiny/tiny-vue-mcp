@@ -1,6 +1,6 @@
 import { defineTool } from "./src/utils/defineTool";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import type { Business, ComponentMcpConfig } from "@opentiny/next-shared";
+import type { Business, ComponentMcpConfig } from "./src/utils/defineTool";
 import zhCN from "./src/lang/zh-CN";
 import enUS from "./src/lang/en";
 import { getGridConfig } from "./src/grid";
