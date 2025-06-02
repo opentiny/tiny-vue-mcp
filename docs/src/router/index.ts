@@ -5,17 +5,12 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/base-config'
+      redirect: '/grid'
     },
     {
-      path: '/base-config',
-      name: 'BaseConfig',
-      component: () => import('../views/BaseConfig.vue')
-    },
-    {
-      path: '/net-config',
-      name: 'NetConfig',
-      component: () => import('../views/NetConfig.vue')
+      path: '/grid',
+      name: 'Grid',
+      component: () => import('../views/grid.vue')
     },
     {
       path: '/:pathMatch(.*)*',
