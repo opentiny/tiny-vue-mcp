@@ -3,7 +3,7 @@
   "servers": {
     "next-mcp-server": {
       "type": "sse",
-      "url": "http://39.108.160.245/sse?sessionId=a0000bf2-0f10-4103-a241-44c2230a50a0"
+      "url": "http://39.108.160.245/sse?sessionId=d9221b9d-89b5-42af-a87f-87a07a7ac6d9"
     }
   }
 }

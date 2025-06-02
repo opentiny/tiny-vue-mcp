@@ -7,15 +7,15 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    RouterLink: (typeof import('vue-router'))['RouterLink']
-    RouterView: (typeof import('vue-router'))['RouterView']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
     TinyBaseSelect: (typeof import('@opentiny/vue-base-select'))['default']
     TinyButton: (typeof import('@opentiny/vue-button'))['default']
     TinyButtonGroup: (typeof import('@opentiny/vue-button-group'))['default']
     TinyCol: (typeof import('@opentiny/vue-col'))['default']
     TinyForm: (typeof import('@opentiny/vue-form'))['default']
     TinyFormItem: (typeof import('@opentiny/vue-form-item'))['default']
-    TinyGrid: (typeof import('@opentiny/vue-grid'))['default']
+    TinyGrid: typeof import('@opentiny/vue-grid')['default']
     TinyInput: (typeof import('@opentiny/vue-input'))['default']
     TinyNumeric: (typeof import('@opentiny/vue-numeric'))['default']
     TinyOption: (typeof import('@opentiny/vue-option'))['default']

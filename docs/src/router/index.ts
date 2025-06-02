@@ -10,12 +10,12 @@ const router = createRouter({
     {
       path: '/grid',
       name: 'Grid',
-      component: () => import('../views/grid.vue')
+      component: () => import('../views/grid/grid.vue')
     },
     {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
-      component: () => import('../views/NotFound.vue')
+      component: () => import('../views/404/NotFound.vue')
     }
   ]
 })

@@ -3,7 +3,9 @@
     <div class="header"></div>
     <!-- 主体内容区域 -->
     <div class="main-content">
-      <div style="color: cornflowerblue">页面识别码：http://39.108.160.245/sse?sessionId={{ sessionID }}</div>
+      <div style="color: cornflowerblue; margin-bottom: 30px">
+        页面识别码：http://39.108.160.245/sse?sessionId={{ sessionID }}
+      </div>
       <router-view />
     </div>
   </div>
@@ -79,7 +81,8 @@ onMounted(async () => {
   // 把量子纠缠的 client 客户端通过 SSE 代理传递给后端服务，创建孪生 client
   const { sessionId } = await createSseProxy({
     client,
-    url: 'http://39.108.160.245/sse'
+    url: 'http://39.108.160.245/sse',
+    token: ''
   })
 
   sessionID.value = sessionId
