@@ -17,8 +17,8 @@ export const createMcpTools = (
   defineTool({ business, componentMcpConfig, instance, server })
 }
 
-export const getTinyVueMcpConfig = ({ t }: { t: ((path: string) => string) | null }) => {
-  if (i18n) {
+export const getTinyVueMcpConfig = ({ t }: { t?: ((path: string) => string) | null } = {}) => {
+  if (i18n && t) {
     i18n.t = t
   }
 
