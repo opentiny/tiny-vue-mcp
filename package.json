@@ -7,7 +7,7 @@
     "preinstall": "npx only-allow pnpm",
     "dev": "pnpm --filter tiny-vue-mcp-docs dev",
     "build": "pnpm --filter @opentiny/tiny-vue-mcp build",
-    "pub": "pnpm --filter @opentiny/tiny-vue-mcp publish",
+    "pub": "pnpm --filter @opentiny/tiny-vue-mcp publish --no-git-checks --access=public",
     "format": "prettier --write \"**/*.{ts,tsx,vue,js,jsx,json,md}\""
   },
   "pnpm": {
