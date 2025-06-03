@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { TinyVueSingleResolver } from '@opentiny/unplugin-tiny-vue'
+import basicSsl from '@vitejs/plugin-basic-ssl'
 
 // https://vite.dev/config/
 export default defineConfig(() => {
@@ -22,6 +23,7 @@ export default defineConfig(() => {
       Components({
         resolvers: [TinyVueSingleResolver]
       }),
+      basicSsl(),
       AutoImport({
         resolvers: [TinyVueSingleResolver]
       })
@@ -29,14 +31,7 @@ export default defineConfig(() => {
     server: {
       port: 8089,
       host: true,
-      proxy: {
-        // 代理 /agent 开头的请求到本地 8001 端口（AI Agent 服务）
-        '/agent': {
-          target: 'http://localhost:8001',
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/agent/, '')
-        }
-      }
+      https: true
     }
   }
 })

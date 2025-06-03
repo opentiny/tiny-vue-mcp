@@ -2,7 +2,7 @@
   "mcpServers": {
     "next-mcp-server": {
       "type": "sse",
-      "url": "http://39.108.160.245/sse?sessionId=d9221b9d-89b5-42af-a87f-87a07a7ac6d9"
+      "url": "https://agent-server-iota.vercel.app/sse?sessionId=80ec42b2-1d33-49cf-b3c8-d56a3f34fa43"
     }
   }
 }

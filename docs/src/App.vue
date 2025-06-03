@@ -4,7 +4,7 @@
     <!-- 主体内容区域 -->
     <div class="main-content">
       <div style="color: cornflowerblue; margin-bottom: 30px">
-        页面识别码：http://39.108.160.245/sse?sessionId={{ sessionID }}
+        页面识别码：https://agent-server-iota.vercel.app/sse?sessionId={{ sessionID }}
       </div>
       <router-view />
     </div>
@@ -81,7 +81,7 @@ onMounted(async () => {
   // 把量子纠缠的 client 客户端通过 SSE 代理传递给后端服务，创建孪生 client
   const { sessionId } = await createSseProxy({
     client,
-    url: 'http://39.108.160.245/sse',
+    url: 'https://agent-server-iota.vercel.app/sse',
     token: ''
   })
 
