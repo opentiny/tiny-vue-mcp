@@ -1,4 +1,5 @@
 <template>
+  <StagewiseToolbar :config="stagewiseConfig" />
   <div class="app-container">
     <div class="header"></div>
     <!-- 主体内容区域 -->
@@ -12,6 +13,7 @@
 </template>
 
 <script setup lang="ts">
+import { StagewiseToolbar } from '@stagewise/toolbar-vue'
 import { ref, provide, onMounted } from 'vue'
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { z } from 'zod'
@@ -20,6 +22,10 @@ import type { MessageChannelTransport, MessageChannelServerTransport } from '@op
 import { createTransportPair, createSseProxy } from '@opentiny/next'
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import '@opentiny/icons/style/all.css'
+
+const stagewiseConfig = {
+  plugins: []
+}
 
 // 为子路由页面封装 server 定义 tool 的方法
 const setupTool = (server: McpServer, state: Record<string, any>, name: string, desc: string) => {
