@@ -1,14 +1,13 @@
 # Tiny Vue MCP
 
-这是一个使用 pnpm workspace 管理的 Vue 3 组件库 monorepo 项目。
+这是一个提供TinyVue组件库MCP配置的monorepo项目。
 
 ## 项目结构
 
-```
-├── apps/                # 应用目录
-│   └── demo/           # 示例应用
+```text
+├── docs/               # 文档调试目录
 ├── packages/           # 包目录
-│   └── components/     # 组件库
+│   └── mcp/     # 组件库MCP配置
 ├── pnpm-workspace.yaml # 工作空间配置
 └── package.json        # 根目录配置
 ```
@@ -30,37 +29,29 @@ pnpm install
 ### 开发命令
 
 ```bash
-# 构建所有包
-pnpm build
-
 # 开发模式
 pnpm dev
 
-# 代码检查
-pnpm lint
-
-# 代码格式化
-pnpm format
-
-# 清理构建产物
-pnpm clean
+# 构建所有包
+pnpm build
 ```
 
 ### 开发流程
 
-1. 在 `packages/components` 中开发组件
-2. 在 `apps/demo` 中预览和测试组件
-3. 运行 `pnpm build` 构建组件库
-4. 运行 `pnpm test` 执行测试（如果有）
+1. 在 `packages/mcp` 中开发MCP配置
+2. 在 `docs` 中预览和测试MCP配置
+3. 运行 `pnpm build` 构建MCP配置
 
-## 使用指南
+### 使用cursor调试MCP配置
 
-在项目中使用组件库：
+1. 启动 `docs` 后将 `sessionId` 拷贝到根目录 `.cursor` 目录下的 `mcp.json` 文件中 `sessionId` 位置
+2. 在 `cursor` 聊天框设置为 `agent` 模式
+3. 在 `agent` 模式下输入要操作组件的指令，如 `帮我选中最贵的cpu规格` 、 `帮我打开下拉面板` 等
+4. 查看是否能正常操作组件，如果不能正常操作，请检查MCP配置的描述是否正确
 
-```bash
-pnpm add @tiny-vue/components
-```
+### 使用copilot调试MCP配置
 
-```vue
-import { Component } from '@tiny-vue/components'
-```
+1. 启动 `docs` 后将 `sessionId` 拷贝到根目录 `.vscode` 目录下的 `mcp.json` 文件中 `sessionId` 位置
+2. 在 `copilot` 聊天框设置为 `agent` 模式
+3. 在 `agent` 模式下输入要操作组件的指令，如 `帮我选中最贵的cpu规格` 、 `帮我打开下拉面板` 等
+4. 查看是否能正常操作组件，如果不能正常操作，请检查MCP配置的描述是否正确
