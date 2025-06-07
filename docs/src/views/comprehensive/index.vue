@@ -32,6 +32,7 @@
           }
         }"
       >
+        <tiny-grid-column type="index" width="50" />
         <tiny-grid-column type="selection" width="50" />
         <tiny-grid-column title="商品图片" width="100">
           <template #default="{ row }">
@@ -60,18 +61,8 @@
         <tiny-grid-column title="操作" width="200" fixed="right">
           <template #default="{ row }">
             <tiny-button-group>
-              <tiny-button type="info" size="mini" round plain>
-                <template #icon>
-                  <tiny-icon name="edit" />
-                </template>
-                编辑
-              </tiny-button>
-              <tiny-button type="danger" size="mini" round plain @click="handleDelete(row)">
-                <template #icon>
-                  <tiny-icon name="delete" />
-                </template>
-                删除
-              </tiny-button>
+              <tiny-button type="info" size="mini" round plain> 编辑 </tiny-button>
+              <tiny-button type="danger" size="mini" round plain @click="handleDelete(row)"> 删除 </tiny-button>
             </tiny-button-group>
           </template>
         </tiny-grid-column>

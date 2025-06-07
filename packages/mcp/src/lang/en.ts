@@ -9,7 +9,11 @@ export default {
       setSelection:
         'Select the specified row,need to get the table data first,then select the data according to the index of the data in the table data,requirement:scroll to the selected row before selecting',
       setAllSelection:
-        'Set the table all selection status,true:all selection,false:cancel all selection,requirement:scroll to the selected row before selecting'
+        'Set the table all selection status,true:all selection,false:cancel all selection,requirement:scroll to the selected row before selecting',
+      insertRow:
+        'Insert or add a row of data,need to get the table data first,then add the corresponding data according to the format of the table data',
+      removeRow:
+        'Remove the specified row in the table,need to get the table data first,then remove the corresponding data according to the index of the data in the table data'
     },
     baseSelect: {
       description: 'Base select component related tool set, including opening the drop-down panel',

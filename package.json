@@ -8,6 +8,7 @@
     "dev": "pnpm --filter tiny-vue-mcp-docs dev",
     "build": "pnpm --filter @opentiny/tiny-vue-mcp build",
     "pub": "pnpm --filter @opentiny/tiny-vue-mcp publish --no-git-checks --access=public",
+    "test": "npx @modelcontextprotocol/inspector",
     "format": "prettier --write \"**/*.{ts,tsx,vue,js,jsx,json,md}\""
   },
   "pnpm": {
