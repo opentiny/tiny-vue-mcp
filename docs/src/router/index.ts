@@ -5,7 +5,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/grid'
+      redirect: '/comprehensive' //综合示例
     },
     {
       path: '/grid',

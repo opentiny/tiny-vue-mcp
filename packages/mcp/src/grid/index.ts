@@ -49,6 +49,25 @@ export const getGridConfig = () =>
           instance.setAllSelection(value)
           return { type: 'text', text: 'success' }
         }
+      },
+      insertRow: {
+        paramsSchema: z.record(z.any()).optional().describe(t('ai.grid.insertRow')),
+        cb: (instance, value) => {
+          instance.insert(value)
+          return { type: 'text', text: 'success' }
+        }
+      },
+      removeRow: {
+        paramsSchema: z.number().optional().describe(t('ai.grid.removeRow')),
+        cb: (instance, value) => {
+          const tableData = instance.getData()
+          const targetRow = tableData[value]
+          if (targetRow) {
+            instance.remove(targetRow)
+            return { type: 'text', text: 'success' }
+          }
+          return { type: 'text', text: 'failed' }
+        }
       }
     }
   })
