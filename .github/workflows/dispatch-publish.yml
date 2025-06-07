@@ -42,6 +42,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20 # 使用Node.js 20版本
+          registry-url: 'https://registry.npmjs.org' # 设置npm registry地址
 
       # 步骤4: 获取pnpm缓存目录路径
       - name: Get pnpm store directory
@@ -69,7 +70,7 @@ jobs:
 
       # 步骤8: 发布组件到NPM
       - name: Publish components
-        run: pnpm --filter @opentiny/tiny-vue-mcp publish --tag ${{ github.ref_name }} --access=public
+        run: pnpm --filter @opentiny/tiny-vue-mcp publish --tag ${{ inputs.tag }} --access=public --no-git-checks
         env:
           # 使用NPM令牌进行身份验证
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TINY_VUE_MCP_TOKEN }}

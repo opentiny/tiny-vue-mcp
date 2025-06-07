@@ -1,6 +1,7 @@
 {
   "name": "tiny-vue-mcp",
   "version": "1.0.0",
+  "packageManager": "pnpm@9.15.0",
   "private": true,
   "description": "Monorepo for TinyVue components and applications",
   "scripts": {
