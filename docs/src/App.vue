@@ -1,5 +1,5 @@
 <template>
-  <StagewiseToolbar :config="stagewiseConfig" />
+  <StagewiseToolbar v-if="false" :config="stagewiseConfig" />
   <div class="app-container">
     <div class="header"></div>
     <!-- 主体内容区域 -->
@@ -8,6 +8,9 @@
         页面识别码：http://39.108.160.245/sse?sessionId={{ sessionID }}
       </div>
       <router-view />
+    </div>
+    <div class="right-panel">
+      <tiny-robot-chat />
     </div>
   </div>
 </template>
@@ -22,6 +25,8 @@ import type { MessageChannelTransport, MessageChannelServerTransport } from '@op
 import { createTransportPair, createSseProxy } from '@opentiny/next'
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import '@opentiny/icons/style/all.css'
+import TinyRobotChat from './components/tiny-robot-chat.vue'
+import { globalConversation } from './composable/utils'
 
 const stagewiseConfig = {
   plugins: []
@@ -92,6 +97,7 @@ onMounted(async () => {
   })
 
   sessionID.value = sessionId
+  globalConversation.sessionId = sessionId
 })
 </script>
 

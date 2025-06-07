@@ -6,5 +6,5 @@
 // biome-ignore lint: disable
 export {}
 declare global {
-
+  const TinyModal: typeof import('@opentiny/vue-modal')['default']
 }
