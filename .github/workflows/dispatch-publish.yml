@@ -69,7 +69,7 @@ jobs:
 
       # 步骤8: 发布组件到NPM
       - name: Publish components
-        run: pnpm --filter @opentiny/tiny-vue-mcp publish --tag ${{ github.ref_name }} --access=public --yes
+        run: pnpm --filter @opentiny/tiny-vue-mcp publish --tag ${{ github.ref_name }} --access=public --no-git-checks
         env:
           # 使用NPM令牌进行身份验证
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TINY_VUE_MCP_TOKEN }}
