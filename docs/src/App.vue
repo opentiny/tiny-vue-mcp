@@ -1,5 +1,5 @@
 <template>
-  <StagewiseToolbar :config="stagewiseConfig" />
+  <StagewiseToolbar v-if="false" :config="stagewiseConfig" />
   <div class="app-container">
     <div class="header"></div>
     <!-- 主体内容区域 -->
@@ -9,6 +9,10 @@
       </div>
       <router-view />
     </div>
+    <div class="right-panel">
+      <tiny-robot-chat />
+    </div>
+    <IconAi @click="showTinyRobot = !showTinyRobot" class="style-settings-icon"></IconAi>
   </div>
 </template>
 
@@ -22,6 +26,9 @@ import type { MessageChannelTransport, MessageChannelServerTransport } from '@op
 import { createTransportPair, createSseProxy } from '@opentiny/next'
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import '@opentiny/icons/style/all.css'
+import TinyRobotChat from './components/tiny-robot-chat.vue'
+import { globalConversation, showTinyRobot } from './composable/utils'
+import { IconAi } from '@opentiny/tiny-robot-svgs'
 
 const stagewiseConfig = {
   plugins: []
@@ -92,6 +99,7 @@ onMounted(async () => {
   })
 
   sessionID.value = sessionId
+  globalConversation.sessionId = sessionId
 })
 </script>
 
@@ -150,5 +158,12 @@ onMounted(async () => {
 .text-lg {
   color: #333;
   font-size: 16px;
+}
+.style-settings-icon {
+  position: fixed;
+  bottom: 100px;
+  right: 200px;
+  font-size: 24px;
+  cursor: pointer;
 }
 </style>

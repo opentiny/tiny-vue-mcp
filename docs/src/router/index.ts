@@ -13,6 +13,11 @@ const router = createRouter({
       component: () => import('../views/grid/grid.vue')
     },
     {
+      path: '/comprehensive',
+      name: 'Comprehensive',
+      component: () => import('../views/comprehensive/index.vue')
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
       component: () => import('../views/404/NotFound.vue')
