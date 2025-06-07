@@ -27,12 +27,12 @@ export function useTinyRobot() {
   const promptItems = [
     {
       label: '识别网页的内容',
-      description: '公司人员表有多少列，有多少行数据，帮我统计一下！',
+      description: '帮我查看cpu规格列表中最贵和最便宜的cpu规格',
       icon: h('span', { style: { fontSize: '18px' } }, '💡')
     },
     {
       label: '智能操作网页',
-      description: '请勾选公司人员表最后一行',
+      description: '请帮我选择最贵的cpu规格',
       icon: h('span', { style: { fontSize: '18px' } }, '🕹')
     }
   ]
@@ -62,13 +62,8 @@ export function useTinyRobot() {
   const suggestionPillItems = [
     {
       id: '1',
-      text: '公司人员表',
+      text: 'cpu规格列表',
       icon: h('span', { style: { fontSize: '18px' } }, '🏢')
-    },
-    {
-      id: '2',
-      text: '城市下拉框',
-      icon: h('span', { style: { fontSize: '18px' } }, '🌐')
     }
   ]
 

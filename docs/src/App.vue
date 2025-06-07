@@ -12,6 +12,7 @@
     <div class="right-panel">
       <tiny-robot-chat />
     </div>
+    <IconAi @click="showTinyRobot = !showTinyRobot" class="style-settings-icon"></IconAi>
   </div>
 </template>
 
@@ -26,7 +27,8 @@ import { createTransportPair, createSseProxy } from '@opentiny/next'
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import '@opentiny/icons/style/all.css'
 import TinyRobotChat from './components/tiny-robot-chat.vue'
-import { globalConversation } from './composable/utils'
+import { globalConversation, showTinyRobot } from './composable/utils'
+import { IconAi } from '@opentiny/tiny-robot-svgs'
 
 const stagewiseConfig = {
   plugins: []
@@ -156,5 +158,12 @@ onMounted(async () => {
 .text-lg {
   color: #333;
   font-size: 16px;
+}
+.style-settings-icon {
+  position: fixed;
+  bottom: 100px;
+  right: 200px;
+  font-size: 24px;
+  cursor: pointer;
 }
 </style>

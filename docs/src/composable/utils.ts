@@ -5,7 +5,9 @@
 
 import type { ChatMessage, ChatCompletionResponse, StreamHandler } from '@opentiny/tiny-robot-kit'
 import type { ChatCompletionRequest } from '@opentiny/tiny-robot-kit'
-import type { Ref } from 'vue'
+import { ref, type Ref } from 'vue'
+
+export const showTinyRobot = ref(false)
 
 export const globalConversation = {
   id: '',

@@ -40,11 +40,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import { TrBubbleList, TrContainer, TrPrompts, TrSender, TrWelcome, TrSuggestionPills } from '@opentiny/tiny-robot'
 import { GeneratingStatus } from '@opentiny/tiny-robot-kit'
 import { useTinyRobot } from '../composable/useTinyRobot'
-const showTinyRobot = ref(true)
+import { showTinyRobot } from '../composable/utils'
 
 const {
   fullscreen,
