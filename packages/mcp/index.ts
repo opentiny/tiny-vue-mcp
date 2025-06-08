@@ -6,6 +6,7 @@ import enUS from './src/lang/en'
 import { getGridConfig } from './src/grid'
 import { getBaseSelectConfig } from './src/base-select'
 import { i18n } from './src/utils/locale'
+import { getButtonConfig } from './src/button'
 
 export { zhCN, enUS, i18n }
 
@@ -27,7 +28,8 @@ export const getTinyVueMcpConfig = ({ t }: { t?: ((path: string) => string) | nu
     version: '0.0.1',
     components: {
       Grid: getGridConfig(),
-      BaseSelect: getBaseSelectConfig()
+      BaseSelect: getBaseSelectConfig(),
+      Button: getButtonConfig()
     }
   }
 }

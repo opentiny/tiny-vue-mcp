@@ -17,7 +17,12 @@ export default {
     },
     baseSelect: {
       description: 'Base select component related tool set, including opening the drop-down panel',
-      openMenu: 'Open the drop-down panel'
-    }
+      openMenu: 'Open the drop-down panel',
+      selectByLabel: 'update select value by label'
+    },
+     button: {
+      description: 'Button component related tool set',
+      triggerClick: 'trigger button click,click self'
+    },
   }
 }

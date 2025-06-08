@@ -7,17 +7,53 @@
       <div class="button-box">
         <div class="button-box-left">
           <tiny-input v-model="searchQuery" placeholder="搜索商品名称" clearable />
-          <tiny-select v-model="statusFilter" placeholder="商品状态" clearable>
+          <tiny-base-select
+            v-model="statusFilter"
+            placeholder="商品状态"
+            clearable
+            :tiny_mcp_config="{
+              server,
+              business: {
+                id: 'product-status-select',
+                description: '商品状态的选择器'
+              }
+            }"
+          >
             <tiny-option label="上架" value="on" />
             <tiny-option label="下架" value="off" />
-          </tiny-select>
-          <tiny-select v-model="categoryFilter" placeholder="商品分类" clearable>
+          </tiny-base-select>
+          <tiny-base-select
+            v-model="categoryFilter"
+            placeholder="商品分类"
+            clearable
+            :tiny_mcp_config="{
+              server,
+              business: {
+                id: 'product-category-select',
+                description: '商品分类的选择器'
+              }
+            }"
+          >
             <tiny-option label="手机" value="phones" />
             <tiny-option label="笔记本" value="laptops" />
             <tiny-option label="平板" value="tablets" />
-          </tiny-select>
+          </tiny-base-select>
         </div>
-        <tiny-button type="primary" class="button-box-right" round @click="addProductToEdit"> 添加商品 </tiny-button>
+        <tiny-button
+          type="primary"
+          class="button-box-right"
+          round
+          @click="addProductToEdit"
+          :tiny_mcp_config="{
+            server,
+            business: {
+              id: 'add-product-button',
+              description: '添加商品的按钮'
+            }
+          }"
+        >
+          添加商品
+        </tiny-button>
       </div>
       <tiny-grid
         auto-resize
@@ -70,7 +106,15 @@
     </div>
   </div>
 
-  <tiny-modal v-if="showEdit" v-model="showEdit" title="编辑产品" show-footer @confirm="handleProductSave()">
+  <tiny-modal
+    v-if="showEdit"
+    v-model="showEdit"
+    title="编辑产品"
+    show-footer
+    @confirm="handleProductSave()"
+    @cancel="handleProductCancel"
+    :before-close="beforeModalClose"
+  >
     <tiny-form ref="productFormRef" :model="editProduct" label-width="120px">
       <tiny-form-item label="商品名称" prop="name" required>
         <tiny-input v-model="editProduct.name" placeholder="请输入商品名称" />
@@ -105,7 +149,8 @@ import productsData from './products.json'
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { $local } from '../../composable/utils'
 import { TinyModal } from '@opentiny/vue'
-import { id } from 'zod/v4/locales'
+import { fa, id } from 'zod/v4/locales'
+import { before } from 'node:test'
 
 if (!$local.products) {
   $local.products = productsData
@@ -148,17 +193,16 @@ const addProductToEdit = async () => {
 }
 // 处理编辑商品
 const handleEdit = async (product: Product) => {
-  editProduct.value = {...product}
+  editProduct.value = { ...product }
   showEdit.value = true
 }
 
+const beforeModalClose = () => {
+    productFormRef.value?.validate()
+  return !!editProduct.value?.name 
+}
+
 const handleProductSave = async () => {
-  productFormRef.value?.validate().then((valid: boolean) => {
-    if (!valid) {
-      TinyModal.alert('请填写完整的商品信息')
-      return
-    }
-  })
   if (editProduct.value?.id) {
     // 更新现有商品
     const index = products.value.findIndex((p) => p.id === editProduct.value!.id)
@@ -167,14 +211,19 @@ const handleProductSave = async () => {
     }
   } else {
     // 添加新商品
-    products.value.push({...editProduct.value,
+    products.value.push({
+      ...editProduct.value,
       id: Math.max(...products.value.map((p) => p.id)) + 1,
-      createdAt: new Date().toISOString(),  
+      createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     })
   }
   $local.products = products.value
 
+  editProduct.value = null
+  showEdit.value = false
+}
+const handleProductCancel = () => {
   editProduct.value = null
   showEdit.value = false
 }

@@ -12,7 +12,12 @@ export default {
     },
     baseSelect: {
       description: '下拉组件相关工具集合，包含获取下拉数据、选中下拉数据等功能',
-      openMenu: '打开下拉面板'
-    }
+      openMenu: '打开下拉面板',
+      selectByLabel: '根据标签选中下拉数据'
+    },
+    button: {
+      description: '按钮组件相关工具集合',
+      triggerClick: '按钮点击，点击按钮'
+    },
   }
 }
