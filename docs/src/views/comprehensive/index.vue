@@ -156,13 +156,33 @@
         <tiny-numeric v-model="editProduct.stock" :min="0" placeholder="请输入库存数量" />
       </tiny-form-item>
       <tiny-form-item label="分类" prop="category">
-        <tiny-select v-model="editProduct.category" placeholder="请选择商品分类">
+        <tiny-select
+          v-model="editProduct.category"
+          placeholder="请选择商品分类"
+          :tiny_mcp_config="{
+            server,
+            business: {
+              id: 'edit-product-category-select' + +new Date(),
+              description: '编辑中的商品分类的选择器'
+            }
+          }"
+        >
           <tiny-option label="手机" value="phones" />
           <tiny-option label="笔记本" value="laptops" />
           <tiny-option label="平板" value="tablets" />
         </tiny-select>
       </tiny-form-item>
-      <tiny-form-item label="状态" prop="status">
+      <tiny-form-item
+        label="状态"
+        prop="status"
+        :tiny_mcp_config="{
+          server,
+          business: {
+            id: 'edit-product-status-select' + +new Date(),
+            description: '编辑中的商品状态的选择器'
+          }
+        }"
+      >
         <tiny-select v-model="editProduct.status" placeholder="请选择商品状态">
           <tiny-option label="上架" value="on" />
           <tiny-option label="下架" value="off" />
