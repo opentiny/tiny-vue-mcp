@@ -9,7 +9,7 @@
       </div>
       <router-view />
     </div>
-    <div class="right-panel">
+    <div class="right-panel" :class="{ collapsed: !showTinyRobot }">
       <tiny-robot-chat />
     </div>
     <IconAi @click="showTinyRobot = !showTinyRobot" class="style-settings-icon"></IconAi>
@@ -113,16 +113,14 @@ onMounted(async () => {
 .main-content {
   flex: 1;
   padding: 10px 10px;
-  transition: width 0.3s ease;
   height: 100%;
   position: relative;
 }
 
 .right-panel {
-  width: 30%;
+  width: 480px;
   height: 100%;
   position: relative;
-  transition: width 0.3s ease;
   background: #fff;
   border-left: 1px solid #e4e7ed;
 }

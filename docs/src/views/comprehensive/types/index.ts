@@ -10,13 +10,13 @@ export interface Product {
   id: number;
   name: string;
   price: number;
-  description: string;
+  description?: string;
   image: string;
   category: string;
   stock: number;
   status: 'on' | 'off'; // on: 上架, off: 下架
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 // 登录表单类型
