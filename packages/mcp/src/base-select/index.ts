@@ -34,6 +34,26 @@ export const getBaseSelectConfig = () =>
             return { type: 'text', text: `Option with label "${value}" not found.` }
           }
         }
+      },
+      clearValue: {
+        paramsSchema: z.string().describe(t('ai.baseSelect.clearValue')),
+
+        cb: (instance, value) => {
+          instance.updateModelValue('')
+          return { type: 'text', text: 'success' }
+        }
+      },
+      getOptions: {
+        paramsSchema: z.string().describe(t('ai.baseSelect.getOptions')),
+
+        cb: (instance, value) => {
+          const options = instance.state.cachedOptions || []
+          const cleanOptions = options.map((option) => ({
+            label: option.label,
+            value: option.value
+          }))
+          return { type: 'text', text: JSON.stringify(cleanOptions) }
+        }
       }
     }
   })

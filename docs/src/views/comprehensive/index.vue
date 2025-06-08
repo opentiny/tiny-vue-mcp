@@ -95,8 +95,39 @@
         <tiny-grid-column title="操作" width="200" fixed="right">
           <template #default="{ row }">
             <tiny-button-group>
-              <tiny-button type="info" size="mini" round plain @click="handleEdit(row)"> 编辑 </tiny-button> <wbr />
-              <tiny-button type="danger" size="mini" round plain @click="handleDelete(row)" style="margin-left: 8px">
+              <!--  TODO 如此绑定tools，可能有深层次的问题 -->
+              <tiny-button
+                type="info"
+                size="mini"
+                round
+                plain
+                @click="handleEdit(row)"
+                :tiny_mcp_config="{
+                  server,
+                  business: {
+                    id: 'edit-product-button-' + row.id,
+                    description: `编辑商品列表中的id=${row.id}数据行的按钮`
+                  }
+                }"
+              >
+                编辑
+              </tiny-button>
+              <wbr />
+              <tiny-button
+                type="danger"
+                size="mini"
+                round
+                plain
+                @click="handleDelete(row)"
+                style="margin-left: 8px"
+                :tiny_mcp_config="{
+                  server,
+                  business: {
+                    id: 'delete-product-button-' + row.id,
+                    description: `删除商品列表中的id=${row.id}数据行的按钮`
+                  }
+                }"
+              >
                 删除
               </tiny-button>
             </tiny-button-group>
@@ -111,7 +142,6 @@
     v-model="showEdit"
     title="编辑产品"
     show-footer
-    @confirm="handleProductSave()"
     @cancel="handleProductCancel"
     :before-close="beforeModalClose"
   >
@@ -139,6 +169,32 @@
         </tiny-select>
       </tiny-form-item>
     </tiny-form>
+    <template #footer>
+      <!-- TODO tools 有潜在的风险 -->
+      <tiny-button
+        @click="handleProductCancel"
+        :tiny_mcp_config="{
+          server,
+          business: {
+            id: 'cancel-product-button' + +new Date(),
+            description: '取消编辑中的商品的按钮'
+          }
+        }"
+        >取消</tiny-button
+      >
+      <tiny-button
+        type="primary"
+        @click="handleProductSave"
+        :tiny_mcp_config="{
+          server,
+          business: {
+            id: 'save-product-button' + +new Date(),
+            description: '保存编辑中的商品的按钮'
+          }
+        }"
+        >保存</tiny-button
+      >
+    </template>
   </tiny-modal>
 </template>
 
@@ -198,8 +254,8 @@ const handleEdit = async (product: Product) => {
 }
 
 const beforeModalClose = () => {
-    productFormRef.value?.validate()
-  return !!editProduct.value?.name 
+  productFormRef.value?.validate()
+  return !!editProduct.value?.name
 }
 
 const handleProductSave = async () => {
