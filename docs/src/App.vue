@@ -1,15 +1,17 @@
 <template>
   <StagewiseToolbar v-if="false" :config="stagewiseConfig" />
+  <div class="header">
+    <div style="color: cornflowerblue; margin-bottom: 30px">
+      页面识别码：http://39.108.160.245/sse?sessionId={{ sessionID }}
+    </div>
+  </div>
   <div class="app-container">
-    <div class="header"></div>
     <!-- 主体内容区域 -->
     <div class="main-content">
-      <div style="color: cornflowerblue; margin-bottom: 30px">
-        页面识别码：http://39.108.160.245/sse?sessionId={{ sessionID }}
-      </div>
       <router-view />
     </div>
     <div class="right-panel" :class="{ collapsed: !showTinyRobot }">
+      <div class="right-panel-header">智能助手操作区</div>
       <tiny-robot-chat />
     </div>
     <IconAi @click="showTinyRobot = !showTinyRobot" class="style-settings-icon"></IconAi>
@@ -111,9 +113,9 @@ onMounted(async () => {
 }
 
 .main-content {
-  flex: 1;
   padding: 10px 10px;
   height: 100%;
+  width: calc(100% - 502px);
   position: relative;
 }
 
@@ -127,41 +129,15 @@ onMounted(async () => {
 
 .right-panel.collapsed {
   width: 0;
-  overflow: visible;
+  overflow: hidden;
 }
 
-.panel-toggle {
-  position: absolute;
-  top: 50%;
-  left: -16px;
-  transform: translateY(-50%);
-  width: 32px;
-  height: 32px;
-  background: #fff;
-  border: 1px solid #e4e7ed;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 10;
-}
-
-.help-doc-iframe {
-  width: 100%;
-  height: 100%;
-  min-height: 500px;
-}
-
-.text-lg {
-  color: #333;
-  font-size: 16px;
-}
 .style-settings-icon {
   position: fixed;
   bottom: 100px;
-  right: 200px;
+  right: 100px;
   font-size: 24px;
+  z-index: 30;
   cursor: pointer;
 }
 </style>
