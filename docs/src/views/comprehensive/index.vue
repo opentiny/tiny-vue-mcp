@@ -42,14 +42,14 @@
         <div class="button-box-right">
           <tiny-button type="info" @click="addProductToEdit"> 添加商品 </tiny-button>
           <tiny-button type="danger" @click="removeProduct"> 删除商品 </tiny-button>
-          <tiny-button type="success"> 保存 </tiny-button>
+          <tiny-button type="success" @click="saveProduct"> 保存 </tiny-button>
         </div>
       </div>
       <tiny-grid
         auto-resize
         ref="gridRef"
         :data="displayProducts"
-        :height="800"
+        :height="500"
         :edit-config="{ trigger: 'click', mode: 'cell', showStatus: true }"
         :tiny_mcp_config="{
           server,
@@ -167,7 +167,7 @@ const addProductToEdit = async () => {
   })
 }
 
-const removeProduct = async () => {
+const removeProduct = () => {
   const selectedRows = gridRef?.value?.getSelectRecords()
   if (selectedRows.length === 0) {
     TinyModal.confirm({
@@ -180,6 +180,17 @@ const removeProduct = async () => {
   if (selectedRows.length > 0) {
     gridRef?.value?.removeSelecteds()
   }
+}
+
+const saveProduct = () => {
+  setTimeout(() => {
+    const data = gridRef?.value?.getTableData()
+    $local.products = data.tableData
+    TinyModal.message({
+      message: '保存成功',
+      status: 'success'
+    })
+  }, 1000)
 }
 
 // 通过 inject 注入 mcpServer 对象

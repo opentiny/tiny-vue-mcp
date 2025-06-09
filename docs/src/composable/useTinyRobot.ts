@@ -32,7 +32,7 @@ export function useTinyRobot() {
     },
     {
       label: '智能操作网页',
-      description: '帮我在商品列表中删除最贵的手机品牌商品',
+      description: '帮我在商品列表中删除最贵的且分类为手机的商品',
       icon: h('span', { style: { fontSize: '18px' } }, '🕹')
     },
     {
@@ -69,15 +69,34 @@ export function useTinyRobot() {
       id: '1',
       text: '商品列表',
       icon: h('span', { style: { fontSize: '18px' } }, '🏢')
+    },
+    {
+      id: '2',
+      text: '帮我在商品列表中删除最贵的且分类为手机的商品',
+      icon: h('span', { style: { fontSize: '18px' } }, '🕹')
+    },
+    {
+      id: '3',
+      text: '帮我在商品列表中添加一个华为p60品牌的手机商品',
+      icon: h('span', { style: { fontSize: '18px' } }, '🕹')
+    },
+    {
+      id: '4',
+      text: '帮我将商品列表中的iPhone 16价格修改为8000元',
+      icon: h('span', { style: { fontSize: '18px' } }, '🕹')
     }
   ]
 
   function handleSuggestionPillItemClick(item: SuggestionItem) {
-    let templateText = `请对 [目标组件] ,执行 [操作]`
-    let currentInitialValue = { 目标组件: item.text, 操作: '' }
+    if (item.id === '1') {
+      let templateText = `请对 [目标组件] ,执行 [操作]`
+      let currentInitialValue = { 目标组件: item.text, 操作: '' }
 
-    if (senderRef.value) {
-      senderRef.value.setTemplate(templateText, currentInitialValue)
+      if (senderRef.value) {
+        senderRef.value.setTemplate(templateText, currentInitialValue)
+      }
+    } else {
+      senderRef.value?.setTemplate(item.text, {})
     }
   }
 
