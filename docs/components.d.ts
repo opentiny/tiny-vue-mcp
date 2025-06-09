@@ -23,6 +23,7 @@ declare module 'vue' {
     TinyModal: typeof import('@opentiny/vue-modal')['default']
     TinyNumeric: typeof import('@opentiny/vue-numeric')['default']
     TinyOption: typeof import('@opentiny/vue-option')['default']
+    TinyQrCode: typeof import('@opentiny/vue-qr-code')['default']
     TinyRobotChat: typeof import('./src/components/tiny-robot-chat.vue')['default']
     TinySelect: typeof import('@opentiny/vue-select')['default']
     TinyTag: typeof import('@opentiny/vue-tag')['default']
