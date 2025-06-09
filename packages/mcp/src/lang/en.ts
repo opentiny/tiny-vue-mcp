@@ -16,8 +16,15 @@ export default {
         'Remove the specified row in the table,need to get the table data first,then remove the corresponding data according to the index of the data in the table data'
     },
     baseSelect: {
-      description: 'Base select component related tool set, including opening the drop-down panel',
-      openMenu: 'Open the drop-down panel'
-    }
+      description: 'Base select component related tool set, including opening the drop-down panel,set selected value or clear selected value and get selected options',
+      openMenu: 'Open the drop-down panel',
+      selectByLabel: 'update select value by label',
+      clearValue: 'clear select value,remove value',
+      getOptions: 'get all options of the select component',
+    },
+     button: {
+      description: 'Button component related tool set',
+      triggerClick: 'trigger button click,click self'
+    },
   }
 }

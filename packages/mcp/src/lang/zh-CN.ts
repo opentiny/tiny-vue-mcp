@@ -11,8 +11,15 @@ export default {
       removeRow: '删除表格中指定行，需要先获取表格数据，根据表格数据中的数组下标索引删除对应的数据'
     },
     baseSelect: {
-      description: '下拉组件相关工具集合，包含获取下拉数据、选中下拉数据等功能',
-      openMenu: '打开下拉面板'
-    }
+      description: '下拉组件相关工具集合，包含获取下拉数据、选中下拉数据，清除选中值等功能',
+      openMenu: '打开下拉面板',
+      selectByLabel: '根据标签选中下拉数据',
+      clearValue: '清除下拉值',
+      getOptions: '查询下拉选择的所有选项值',
+    },
+    button: {
+      description: '按钮组件相关工具集合',
+      triggerClick: '按钮点击，点击按钮'
+    },
   }
 }

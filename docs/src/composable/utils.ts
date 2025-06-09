@@ -7,6 +7,8 @@ import type { ChatMessage, ChatCompletionResponse, StreamHandler } from '@openti
 import type { ChatCompletionRequest } from '@opentiny/tiny-robot-kit'
 import { ref, type Ref } from 'vue'
 
+export { $local } from './storage'
+
 export const showTinyRobot = ref(false)
 
 export const globalConversation = {
