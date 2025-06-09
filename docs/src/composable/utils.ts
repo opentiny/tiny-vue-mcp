@@ -101,18 +101,16 @@ export async function handleSSEStream(
           console.log('SSE data:', data)
 
           if (data?.event === 'node_started') {
-            printMessage(data, `**${data.data.title} 节点运行...**`, true)
+            printMessage(data, `${data.data.title} 节点运行...`, true)
           }
           if (data?.event === 'node_finished') {
             printMessage(
               data,
-              `**${data.data.title} 节点结束**\n\n` + (data.data.node_type === 'answer' ? data.data.outputs.answer : '')
+              `${data.data.title} 节点结束\n\n` + (data.data.node_type === 'answer' ? `**${data.data.outputs.answer}**` : '')
             )
           }
-
-     
           if (data?.event === 'agent_log' && data.data.status === 'success'&& data.data.label.startsWith('CALL')) {
-            printMessage(data, '--' + data.data.label , true)
+            printMessage(data, `--${data.data.label}(${JSON.stringify(data.data.data.output.tool_call_input)})` , true)
           }
         } catch (error) {
           console.error('Error parsing SSE message:', error)
