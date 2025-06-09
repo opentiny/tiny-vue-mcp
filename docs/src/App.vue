@@ -4,6 +4,9 @@
     <div style="color: cornflowerblue; margin-bottom: 30px">
       页面识别码：http://39.108.160.245/sse?sessionId={{ sessionID }}
     </div>
+    <div class="qr-code">
+      <tiny-qr-code v-bind="params"></tiny-qr-code>
+    </div>
   </div>
   <div class="app-container">
     <!-- 主体内容区域 -->
@@ -31,10 +34,13 @@ import '@opentiny/icons/style/all.css'
 import TinyRobotChat from './components/tiny-robot-chat.vue'
 import { globalConversation, showTinyRobot } from './composable/utils'
 import { IconAi } from '@opentiny/tiny-robot-svgs'
+import CryptoJS from 'crypto-js'
 
 const stagewiseConfig = {
   plugins: []
 }
+
+const params = ref({ value: 'xxx', color: '#1677ff', size: 100 })
 
 // 为子路由页面封装 server 定义 tool 的方法
 const setupTool = (server: McpServer, state: Record<string, any>, name: string, desc: string) => {
@@ -102,10 +108,31 @@ onMounted(async () => {
 
   sessionID.value = sessionId
   globalConversation.sessionId = sessionId
+  const encryptedId = CryptoJS.AES.encrypt(sessionId, 'secret-session-id').toString()
+
+  const secretId = encodeURIComponent(encryptedId)
+  params.value = {
+    value: 'http://39.108.160.245?id=' + secretId,
+    color: '#1677ff',
+    size: 100
+  }
 })
 </script>
 
 <style scoped>
+.header {
+  width: calc(100% - 502px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f5f5f5;
+}
+
+.qr-code {
+  margin-right: 20px;
+}
+
 .app-container {
   display: flex;
   height: 100%;
