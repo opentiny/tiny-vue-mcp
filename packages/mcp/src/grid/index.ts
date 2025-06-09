@@ -57,6 +57,20 @@ export const getGridConfig = () =>
           return { type: 'text', text: 'success' }
         }
       },
+      updateRow: {
+        paramsSchema: z.record(z.any()).optional().describe(t('ai.grid.updateRow')),
+        cb: (instance, value) => {
+          if (value && typeof value.tiny_mcp_index === 'number') {
+            const tableData = instance.getData()
+            const targetRow = tableData[value.tiny_mcp_index]
+            if (targetRow) {
+              Object.assign(targetRow, value)
+              return { type: 'text', text: 'success' }
+            }
+          }
+          return { type: 'text', text: 'failed' }
+        }
+      },
       removeRow: {
         paramsSchema: z.number().optional().describe(t('ai.grid.removeRow')),
         cb: (instance, value) => {
