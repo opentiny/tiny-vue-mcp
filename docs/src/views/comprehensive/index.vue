@@ -125,10 +125,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, inject, computed } from 'vue'
+import { ref, computed } from 'vue'
 import productsData from './products.json'
-import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { $local } from '../../composable/utils'
+import { useNextServer } from '@opentiny/next-vue'
 
 if (!$local.products) {
   $local.products = productsData
@@ -193,18 +193,8 @@ const saveProduct = () => {
   }, 1000)
 }
 
-// 通过 inject 注入 mcpServer 对象
-const { transport, setupRouterTool, done } = inject('mcpServer')
-const capabilities = { prompts: {}, resources: {}, tools: {}, logging: {} }
-const server = new McpServer({ name: 'comprehensive-config', version: '1.0.0' }, { capabilities })
-
-// 添加切换路由的工具
-setupRouterTool(server)
-
-onMounted(async () => {
-  await server.connect(transport)
-  // 通过 done 方法通知主页面，当前子页面已加载完成
-  done()
+const { server } = useNextServer({
+  serverInfo: { name: 'comprehensive-config', version: '1.0.0' }
 })
 </script>
 

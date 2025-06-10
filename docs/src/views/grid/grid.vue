@@ -39,8 +39,8 @@
 </template>
 
 <script setup>
-import { onMounted, inject, ref } from 'vue'
-import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
+import { ref } from 'vue'
+import { useNextServer } from '@opentiny/next-vue'
 
 const tableData = ref(
   Array.from({ length: 10 }, (_, index) => ({
@@ -53,18 +53,8 @@ const tableData = ref(
   }))
 )
 
-// 通过 inject 注入 mcpServer 对象
-const { transport, setupRouterTool, done } = inject('mcpServer')
-const capabilities = { prompts: {}, resources: {}, tools: {}, logging: {} }
-const server = new McpServer({ name: 'base-config', version: '1.0.0' }, { capabilities })
-
-// 添加切换路由的工具
-setupRouterTool(server)
-
-onMounted(async () => {
-  await server.connect(transport)
-  // 通过 done 方法通知主页面，当前子页面已加载完成
-  done()
+const { server } = useNextServer({
+  serverInfo: { name: 'ecs-console', version: '1.0.0' }
 })
 </script>
 
