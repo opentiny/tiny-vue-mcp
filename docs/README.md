@@ -1,5 +1,18 @@
-# Vue 3 + TypeScript + Vite
+# 轻松解锁TinyVue智能组件开发Web应用
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+该项目是华为云 HDC 训练营赛题，它是通过改造一个常规的商品列表的应用，让它秒变为一个能够对接大语言模型的智能应用。
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+
+## 题目
+
+首先，大会提供了一个用 `Vue3` 搭建的商品列表管理的应用，它使用`TinyVue`组件库中的 `Select\Grid` 等组件。 该管理应用默认会显示商品管理的表格，并且已经实现了条件查询商品，添加、删除商品 和保存商品等功能。但目前应用不支持AI大模型的操作，比如打开`智能助手`，发送的信息不会正确执行。
+
+要求学员在规定的时间内，对接`TinyVue Next 智能框架`的相关包，给`Select\Grid` 等组件添加业务描述后，让`智能助手`等功能可以遥控操作网页。
+
+
+## 主要验收步骤
+
+1. 能正确启动静态的商品列表管理的页面
+2. 根据文档，正确对接`TinyVue Next 智能框架`的相关包
+3. 使用智能助手操作商品列表
+4. 页面添加二维码功能，并使用手机端进行远程遥控操作。
