@@ -5,7 +5,7 @@
       页面识别码：http://39.108.160.245/sse?sessionId={{ sessionID }}
     </div>
     <div class="qr-code">
-      <tiny-qr-code v-bind="params"></tiny-qr-code>
+      <tiny-qr-code :value="sessionUrl" :size="100" color='#1677ff'></tiny-qr-code>
     </div>
   </div>
   <div class="app-container">
@@ -40,7 +40,7 @@ const stagewiseConfig = {
   plugins: []
 }
 
-const params = ref({ value: 'xxx', color: '#1677ff', size: 100 })
+const sessionUrl = ref('placeholder')
 
 // 为子路由页面封装 server 定义 tool 的方法
 const setupTool = (server: McpServer, state: Record<string, any>, name: string, desc: string) => {
@@ -110,12 +110,9 @@ onMounted(async () => {
   globalConversation.sessionId = sessionId
   const encryptedId = CryptoJS.AES.encrypt(sessionId, 'secret-session-id').toString()
 
+
   const secretId = encodeURIComponent(encryptedId)
-  params.value = {
-    value: 'http://39.108.160.245?id=' + secretId,
-    color: '#1677ff',
-    size: 100
-  }
+  sessionUrl.value = 'http://39.108.160.245?id=' + secretId;
 })
 </script>
 
