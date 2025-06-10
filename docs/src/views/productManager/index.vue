@@ -7,9 +7,27 @@
       <div class="button-box">
         <div class="button-box-left">
           <tiny-input v-model="searchQuery" placeholder="搜索商品名称" clearable />
-          <tiny-base-select v-model="statusFilter" :options="statusOptions" placeholder="商品状态" clearable>
+          <tiny-base-select
+            v-model="statusFilter"
+            :options="statusOptions"
+            placeholder="商品状态"
+            clearable
+            :tiny_mcp_config="{
+              server,
+              business: { id: 'status-select', description: '商品状态的下拉框' }
+            }"
+          >
           </tiny-base-select>
-          <tiny-base-select v-model="categoryFilter" :options="categoryOptions" placeholder="商品分类" clearable>
+          <tiny-base-select
+            v-model="categoryFilter"
+            :options="categoryOptions"
+            placeholder="商品分类"
+            clearable
+            :tiny_mcp_config="{
+              server,
+              business: { id: 'category-select', description: '商品分类的下拉框' }
+            }"
+          >
           </tiny-base-select>
         </div>
         <div class="button-box-right">
@@ -24,6 +42,10 @@
         :data="displayProducts"
         :height="500"
         :edit-config="{ trigger: 'click', mode: 'cell', showStatus: true }"
+        :tiny_mcp_config="{
+          server,
+          business: { id: 'product-list', description: '商品列表' }
+        }"
       >
         <tiny-grid-column type="index" width="50" />
         <tiny-grid-column type="selection" width="50" />
@@ -56,11 +78,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import productsData from './productsData'// 初始静态数据
+import { ref, computed, onMounted } from 'vue'
+import { useNextServer } from '@opentiny/next-vue'
+import productsData from './productsData' // 初始静态数据
 import { $local } from '../../composable/utils'
 import { TinyModal, TinyGrid } from '@opentiny/vue'
-import {   type Product } from '@/env'
+import { type Product } from '@/env'
 
 // 将初始静态数据存入localStorage，之后保存时，同步修改localStorage
 if (!$local.products) {
@@ -148,6 +171,11 @@ const saveProduct = () => {
     })
   }, 1000)
 }
+
+// 3、创建web应用所需的 McpServer 变量, 用于注册页面中的组件到系统中。
+const { server } = useNextServer({ serverInfo: { name: 'company-list', version: '1.0.0' } })
+
+// 4、 模板中，在AI智能助手要操作的组件上， 去绑定 server 和 组件的 “业务描述”。  这样 AI就能关联mcp,并识别每个组件的业务定义了。
 </script>
 
 <style scoped lang="less">

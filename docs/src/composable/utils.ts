@@ -13,7 +13,7 @@ export const showTinyRobot = ref(false)
 
 export const globalConversation = {
   id: '',
-  sessionId: ''
+  sessionId: ref('')
 }
 /**
  * 处理SSE流式响应

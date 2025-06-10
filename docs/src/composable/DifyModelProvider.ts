@@ -46,7 +46,7 @@ export class DifyModelProvider extends BaseModelProvider {
           user: 'user',
           response_mode: 'streaming',
           inputs: {
-            sessionId: globalConversation.sessionId
+            sessionId: globalConversation.sessionId.value
           },
           conversation_id: globalConversation.id
         })

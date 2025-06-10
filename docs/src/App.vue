@@ -2,7 +2,7 @@
   <div class="app-container">
     <!-- 主体内容区域 -->
     <div class="main-content">
-       <router-view />
+      <router-view />
     </div>
     <div class="right-panel" :class="{ collapsed: !showTinyRobot }">
       <div class="right-panel-header">智能助手操作区</div>
@@ -14,8 +14,19 @@
 
 <script setup lang="ts">
 import TinyRobotChat from './components/tiny-robot-chat.vue'
-import {  showTinyRobot } from './composable/utils'
+import { showTinyRobot } from './composable/utils'
 import { IconAi } from '@opentiny/tiny-robot-svgs'
+import { useNextClient } from '@opentiny/next-vue'
+import {globalConversation} from "./composable/utils"
+
+// 2、创建 sessionId , ref<string> 的值, 并保存起来，智能助手会访问该变量
+const { sessionId } = useNextClient({
+  clientInfo: { name: 'my-project', version: '1.0.0' },
+  proxyOptions: { url: 'http://39.108.160.245/sse', token:'' }
+})
+
+globalConversation.sessionId = sessionId
+
 </script>
 
 <style scoped>
