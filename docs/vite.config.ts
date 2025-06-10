@@ -28,15 +28,7 @@ export default defineConfig(() => {
     ],
     server: {
       port: 8089,
-      host: true,
-      proxy: {
-        // 代理 /agent 开头的请求到本地 8001 端口（AI Agent 服务）
-        '/agent': {
-          target: 'http://localhost:8001',
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/agent/, '')
-        }
-      }
+      host: true
     }
   }
 })
