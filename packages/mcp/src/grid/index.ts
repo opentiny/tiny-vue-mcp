@@ -14,7 +14,7 @@ export const getGridConfig = () =>
     name: 'grid_component_tools',
     description: t('ai.grid.description'),
     tools: {
-      scollToRow: {
+      scrollToRow: {
         paramsSchema: z.number().optional().describe(t('ai.grid.scrollToRow')),
         cb: (instance, value) => {
           const tableData = instance.getData()
