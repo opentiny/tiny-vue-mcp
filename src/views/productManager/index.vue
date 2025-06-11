@@ -40,7 +40,7 @@
         auto-resize
         ref="gridRef"
         :data="displayProducts"
-        :height="500"
+        :height="520"
         :edit-config="{ trigger: 'click', mode: 'cell', showStatus: true }"
         :tiny_mcp_config="{
           server,
