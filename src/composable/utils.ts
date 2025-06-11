@@ -9,7 +9,7 @@ import { ref, type Ref } from 'vue'
 
 export { $local } from './storage'
 
-export const showTinyRobot = ref(false)
+export const showTinyRobot = ref(true)
 
 export const globalConversation = {
   id: '',
