@@ -9,6 +9,12 @@ declare module 'vue' {
   export interface GlobalComponents {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TinyBaseSelect: typeof import('@opentiny/vue-base-select')['default']
+    TinyButton: typeof import('@opentiny/vue-button')['default']
+    TinyGridColumn: typeof import('@opentiny/vue-grid-column')['default']
+    TinyImage: typeof import('@opentiny/vue-image')['default']
+    TinyInput: typeof import('@opentiny/vue-input')['default']
     TinyRobotChat: typeof import('./src/components/tiny-robot-chat.vue')['default']
+    TinyTag: typeof import('@opentiny/vue-tag')['default']
   }
 }
