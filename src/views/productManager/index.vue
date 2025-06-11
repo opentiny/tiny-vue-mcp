@@ -78,7 +78,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import { useNextServer } from '@opentiny/next-vue'
 import productsData from './productsData' // 初始静态数据
 import { $local } from '../../composable/utils'
