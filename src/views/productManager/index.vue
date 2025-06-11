@@ -10,24 +10,17 @@
             v-model="searchQuery"
             placeholder="搜索商品名称"
             clearable
-            :tiny_mcp_config="{
-              server,
-              business: {
-                id: 'status-select',
-                description: '商品状态的下拉框',
-              },
-            }"
           />
           <tiny-base-select
             v-model="statusFilter"
             :options="statusOptions"
             placeholder="商品状态"
             clearable
-            :tiny_mcp_config="{
+             :tiny_mcp_config="{
               server,
               business: {
-                id: 'category-select',
-                description: '商品分类的下拉框',
+                id: 'status-select',
+                description: '商品状态的下拉框',
               },
             }"
           >
@@ -37,6 +30,13 @@
             :options="categoryOptions"
             placeholder="商品分类"
             clearable
+             :tiny_mcp_config="{
+              server,
+              business: {
+                id: 'category-select',
+                description: '商品分类的下拉框',
+              },
+            }"
           >
           </tiny-base-select>
         </div>
