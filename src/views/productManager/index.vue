@@ -22,7 +22,7 @@
         auto-resize
         ref="gridRef"
         :data="displayProducts"
-        :height="500"
+        :height="520"
         :edit-config="{ trigger: 'click', mode: 'cell', showStatus: true }"
       >
         <tiny-grid-column type="index" width="50" />
@@ -59,7 +59,6 @@
 import { ref, computed } from 'vue'
 import productsData from './productsData'// 初始静态数据
 import { $local } from '../../composable/utils'
-import { TinyModal, TinyGrid } from '@opentiny/vue'
 import {   type Product } from '@/env'
 
 // 将初始静态数据存入localStorage，之后保存时，同步修改localStorage

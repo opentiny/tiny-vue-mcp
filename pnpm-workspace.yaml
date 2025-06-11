@@ -1,6 +1,0 @@
-packages:
-  # 所有 packages/ 目录下的包
-  - "packages/*"
-  - "docs"
-  # 排除所有包中的测试目录
-  - "!**/test/**"
