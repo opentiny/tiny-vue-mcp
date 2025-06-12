@@ -16,7 +16,7 @@
             :options="statusOptions"
             placeholder="商品状态"
             clearable
-             :tiny_mcp_config="{
+            :tiny_mcp_config="{
               server,
               business: {
                 id: 'status-select',
@@ -30,7 +30,7 @@
             :options="categoryOptions"
             placeholder="商品分类"
             clearable
-             :tiny_mcp_config="{
+            :tiny_mcp_config="{
               server,
               business: {
                 id: 'category-select',
@@ -214,6 +214,8 @@ const saveProduct = () => {
   setTimeout(() => {
     const data = gridRef?.value?.getTableData();
     $local.products = data.tableData;
+    products.value = data.tableData;
+    
     TinyModal.message({
       message: "保存成功",
       status: "success",
