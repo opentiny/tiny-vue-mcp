@@ -29,7 +29,9 @@ import { IconAi } from '@opentiny/tiny-robot-svgs'
 }
 
 .qr-code {
-  margin-right: 20px;
+  margin: 20px;
+  display: flex;
+  align-items: baseline;
 }
 
 .app-container {
