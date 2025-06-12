@@ -188,6 +188,8 @@ const saveProduct = () => {
   setTimeout(() => {
     const data = gridRef?.value?.getTableData();
     $local.products = data.tableData;
+    products.value = data.tableData;
+
     TinyModal.message({
       message: "保存成功",
       status: "success",
