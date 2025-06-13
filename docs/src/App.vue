@@ -26,7 +26,7 @@ import { StagewiseToolbar } from '@stagewise/toolbar-vue'
 import { ref, watch } from 'vue'
 import '@opentiny/icons/style/all.css'
 import TinyRobotChat from './components/tiny-robot-chat.vue'
-import { globalConversation, showTinyRobot } from './composable/utils'
+import { globalConversation, showTinyRobot, $session } from './composable/utils'
 import { IconAi } from '@opentiny/tiny-robot-svgs'
 import CryptoJS from 'crypto-js'
 import { useNextClient } from '@opentiny/next-vue'
@@ -37,9 +37,13 @@ const stagewiseConfig = {
 
 const sessionUrl = ref('placeholder')
 
+/**
+ * 如果想固定sessionId保持不变方便调试可以使用crypto.randomUUID()生成一个用来调试
+ */
+
 const { sessionId } = useNextClient({
   clientInfo: { name: 'my-project', version: '1.0.0' },
-  proxyOptions: { url: 'http://39.108.160.245/sse', token: '' }
+  proxyOptions: { url: 'http://39.108.160.245/sse', token: '', sessionId: $session.sessionId }
 })
 
 watch(
@@ -47,6 +51,7 @@ watch(
   (newVal) => {
     if (newVal) {
       globalConversation.sessionId = newVal
+      $session.sessionId = newVal
 
       const encryptedId = CryptoJS.AES.encrypt(newVal, 'secret-session-id').toString()
 

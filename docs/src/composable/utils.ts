@@ -7,7 +7,7 @@ import type { ChatMessage, ChatCompletionResponse, StreamHandler } from '@openti
 import type { ChatCompletionRequest } from '@opentiny/tiny-robot-kit'
 import { ref, type Ref } from 'vue'
 
-export { $local } from './storage'
+export { $local, $session } from './storage'
 
 export const showTinyRobot = ref(true)
 
@@ -106,11 +106,12 @@ export async function handleSSEStream(
           if (data?.event === 'node_finished') {
             printMessage(
               data,
-              `${data.data.title} 节点结束\n\n` + (data.data.node_type === 'answer' ? `**${data.data.outputs.answer}**` : '')
+              `${data.data.title} 节点结束\n\n` +
+                (data.data.node_type === 'answer' ? `**${data.data.outputs.answer}**` : '')
             )
           }
-          if (data?.event === 'agent_log' && data.data.status === 'success'&& data.data.label.startsWith('CALL')) {
-            printMessage(data, `--${data.data.label}(${JSON.stringify(data.data.data.output.tool_call_input)})` , true)
+          if (data?.event === 'agent_log' && data.data.status === 'success' && data.data.label.startsWith('CALL')) {
+            printMessage(data, `--${data.data.label}(${JSON.stringify(data.data.data.output.tool_call_input)})`, true)
           }
         } catch (error) {
           console.error('Error parsing SSE message:', error)
