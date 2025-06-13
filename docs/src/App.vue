@@ -2,7 +2,7 @@
   <StagewiseToolbar v-if="false" :config="stagewiseConfig" />
   <div class="header">
     <div style="color: cornflowerblue; margin-bottom: 30px">
-      页面识别码：http://39.108.160.245/sse?sessionId={{ sessionId }}
+      页面识别码：https://agent.icjs.ink/sse?sessionId={{ sessionId }}
     </div>
     <div class="qr-code">
       <tiny-qr-code :value="sessionUrl" :size="100" color="#1677ff"></tiny-qr-code>
@@ -43,7 +43,7 @@ const sessionUrl = ref('placeholder')
 
 const { sessionId } = useNextClient({
   clientInfo: { name: 'my-project', version: '1.0.0' },
-  proxyOptions: { url: 'http://39.108.160.245/sse', token: '', sessionId: $session.sessionId }
+  proxyOptions: { url: 'https://agent.icjs.ink/sse', token: '', sessionId: $session.sessionId }
 })
 
 watch(
@@ -56,7 +56,7 @@ watch(
       const encryptedId = CryptoJS.AES.encrypt(newVal, 'secret-session-id').toString()
 
       const secretId = encodeURIComponent(encryptedId)
-      sessionUrl.value = 'http://39.108.160.245?id=' + secretId
+      sessionUrl.value = 'https://agent.icjs.ink?id=' + secretId
     }
   }
 )
