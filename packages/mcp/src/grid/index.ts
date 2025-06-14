@@ -15,14 +15,26 @@ export const getGridConfig = () =>
     description: t('ai.grid.description'),
     tools: {
       scrollToRow: {
-        paramsSchema: z.number().optional().describe(t('ai.grid.scrollToRow')),
+        paramsSchema: z.record(z.any()).optional().describe(t('ai.grid.scrollToRow')),
         cb: (instance, value) => {
-          const tableData = instance.getTableData().tableData
-          const targetRow = tableData[value]
+          const targetRow = instance.getRowById(value._RID)
           if (targetRow) {
             instance.scrollToRow(targetRow)
             return { type: 'text', text: 'success' }
           }
+        }
+      },
+      getColumns: {
+        paramsSchema: z.boolean().optional().describe(t('ai.grid.getColumns')),
+        cb: (instance) => {
+          const columns = instance.getColumns()
+          const result = columns
+            .filter((col: any) => col.property && col.title)
+            .map((column: any) => ({
+              property: column.property,
+              title: column.title
+            }))
+          return { type: 'text', text: JSON.stringify(result) }
         }
       },
       getTableData: {
@@ -34,10 +46,9 @@ export const getGridConfig = () =>
         }
       },
       setSelection: {
-        paramsSchema: z.number().optional().describe(t('ai.grid.setSelection')),
+        paramsSchema: z.record(z.any()).optional().describe(t('ai.grid.setSelection')),
         cb: (instance, value) => {
-          const tableData = instance.getTableData().tableData
-          const targetRow = tableData[value]
+          const targetRow = instance.getRowById(value._RID)
           if (targetRow) {
             instance.setSelection(targetRow, true)
             return { type: 'text', text: 'success' }
@@ -61,9 +72,8 @@ export const getGridConfig = () =>
       updateRow: {
         paramsSchema: z.record(z.any()).optional().describe(t('ai.grid.updateRow')),
         cb: (instance, value) => {
-          if (value && typeof value.tiny_mcp_index === 'number') {
-            const tableData = instance.getTableData().tableData
-            const targetRow = tableData[value.tiny_mcp_index]
+          if (value) {
+            const targetRow = instance.getRowById(value._RID)
             if (targetRow) {
               Object.assign(targetRow, value)
               return { type: 'text', text: 'success' }
@@ -73,12 +83,11 @@ export const getGridConfig = () =>
         }
       },
       removeRow: {
-        paramsSchema: z.number().optional().describe(t('ai.grid.removeRow')),
+        paramsSchema: z.record(z.any()).optional().describe(t('ai.grid.removeRow')),
         cb: (instance, value) => {
-          const tableData = instance.getTableData().tableData
-          const targetRow = tableData[value]
-          if (targetRow) {
-            instance.remove(targetRow)
+          if (value) {
+            const row = instance.getRowById(value._RID)
+            instance.remove(row)
             return { type: 'text', text: 'success' }
           }
           return { type: 'text', text: 'failed' }
