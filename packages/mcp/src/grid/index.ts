@@ -17,7 +17,7 @@ export const getGridConfig = () =>
       scrollToRow: {
         paramsSchema: z.number().optional().describe(t('ai.grid.scrollToRow')),
         cb: (instance, value) => {
-          const tableData = instance.getData()
+          const tableData = instance.getTableData().tableData
           const targetRow = tableData[value]
           if (targetRow) {
             instance.scrollToRow(targetRow)
@@ -28,14 +28,15 @@ export const getGridConfig = () =>
       getTableData: {
         paramsSchema: z.boolean().optional().describe(t('ai.grid.getTableData')),
         cb: (instance) => {
-          const tableData = instance.getData()
+          const tableData = instance.getTableData().tableData
+
           return { type: 'text', text: JSON.stringify(tableData) }
         }
       },
       setSelection: {
         paramsSchema: z.number().optional().describe(t('ai.grid.setSelection')),
         cb: (instance, value) => {
-          const tableData = instance.getData()
+          const tableData = instance.getTableData().tableData
           const targetRow = tableData[value]
           if (targetRow) {
             instance.setSelection(targetRow, true)
@@ -61,7 +62,7 @@ export const getGridConfig = () =>
         paramsSchema: z.record(z.any()).optional().describe(t('ai.grid.updateRow')),
         cb: (instance, value) => {
           if (value && typeof value.tiny_mcp_index === 'number') {
-            const tableData = instance.getData()
+            const tableData = instance.getTableData().tableData
             const targetRow = tableData[value.tiny_mcp_index]
             if (targetRow) {
               Object.assign(targetRow, value)
@@ -74,7 +75,7 @@ export const getGridConfig = () =>
       removeRow: {
         paramsSchema: z.number().optional().describe(t('ai.grid.removeRow')),
         cb: (instance, value) => {
-          const tableData = instance.getData()
+          const tableData = instance.getTableData().tableData
           const targetRow = tableData[value]
           if (targetRow) {
             instance.remove(targetRow)
