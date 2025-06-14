@@ -2,32 +2,33 @@ export default {
   ai: {
     grid: {
       description:
-        'Grid component related tool set, including scrolling to the specified row, table full selection, etc.',
+        'Grid component related tool set, including scrolling to specified row, table full selection and other functions',
       scrollToRow:
-        'Scroll to the specified row,need to get the table data first,then scroll to the row according to the index of the data in the table data',
-      getTableData: 'Get the table data',
+        'Scroll to specified row, need to pass the data of the row to scroll to, requirement: the data must contain the "_RID" field',
+      getTableData: 'Get table data',
+      getColumns:
+        'Get table column configuration, "property" field represents the field property of table data, "title" represents the column title',
       setSelection:
-        'Select the specified row,need to get the table data first,then select the data according to the index of the data in the table data,requirement:scroll to the selected row before selecting',
-      setAllSelection:
-        'Set the table all selection status,true:all selection,false:cancel all selection,requirement:scroll to the selected row before selecting',
+        'Select a row in the table, need to pass the data to be selected, requirement: scroll to the row before selecting, requirement: the data must contain the "_RID" field',
+      setAllSelection: 'Set table full selection status, true: select all, false: cancel all selection',
       insertRow:
-        'Insert or add a row of data,need to get the table data first,then add the corresponding data according to the format of the table data',
+        'Insert or add a row of data, need to get table data first, then add corresponding data according to the table data format',
       updateRow:
-        'Update the specified row data in the table,need to get the table data first,then update the corresponding data according to the index of the data in the table data,requirement:the index of the data in the table data is passed in as the "tiny_mcp_index" field',
+        'Update specified row data in the table, need to pass the data to be updated, requirement: the data must contain the "_RID" field',
       removeRow:
-        'Remove the specified row in the table,need to get the table data first,then remove the corresponding data according to the index of the data in the table data'
+        'Remove specified row in the table, need to pass the data to be removed, requirement: the data must contain the "_RID" field'
     },
     baseSelect: {
       description:
-        'Base select component related tool set, including opening the drop-down panel,set selected value or clear selected value and get selected options',
-      openMenu: 'Open the drop-down panel',
-      selectByLabel: 'update select value by label',
-      clearValue: 'clear select value,remove value',
-      getOptions: 'get all options of the select component'
+        'Dropdown component related tool set, including getting dropdown data, selecting dropdown data, clearing selected value and other functions',
+      openMenu: 'Open dropdown panel',
+      selectByLabel: 'Select dropdown data by label',
+      clearValue: 'Clear dropdown value',
+      getOptions: 'Query all option values of the dropdown select'
     },
     button: {
       description: 'Button component related tool set',
-      triggerClick: 'trigger button click,click self'
+      triggerClick: 'Button click, click the button'
     }
   }
 }
