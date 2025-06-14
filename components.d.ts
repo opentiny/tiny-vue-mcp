@@ -15,7 +15,6 @@ declare module 'vue' {
     TinyGridColumn: typeof import('@opentiny/vue-grid-column')['default']
     TinyImage: typeof import('@opentiny/vue-image')['default']
     TinyInput: typeof import('@opentiny/vue-input')['default']
-    TinyQrCode: typeof import('@opentiny/vue-qr-code')['default']
     TinyRobotChat: typeof import('./src/components/tiny-robot-chat.vue')['default']
     TinyTag: typeof import('@opentiny/vue-tag')['default']
   }
