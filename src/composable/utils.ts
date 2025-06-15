@@ -104,7 +104,7 @@ export async function handleSSEStream(
           if (!dataMatch) continue;
 
           const data = JSON.parse(dataMatch[1]);
-          console.log("SSE data:", data);
+          console.log(`SSE data: ${data.event} 【${data.data?.label - data.data?.status}】`, data);
 
           if (data?.event === "workflow_started") {
             if (!globalConversation.id) {
