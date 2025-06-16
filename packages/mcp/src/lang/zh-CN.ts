@@ -22,6 +22,13 @@ export default {
     button: {
       description: '按钮组件相关工具集合',
       triggerClick: '按钮点击，点击按钮'
+    },
+    form: {
+      resetFields: '对整个表单进行重置，将所有字段值重置为初始值并移除校验结果',
+      clearValidate: '移除表单项的校验结果，可传入待移除的表单项的 prop ，或者 prop 用逗号隔开，如不传则移除整个表单的校验结果',
+      clearValidateAll: '移除整个表单的校验结果',
+      validate: '对整个表单进行校验的方法，参数为一个回调函数（该回调函数会在校验结束后被调用，并传入两个参数：1、是否校验成功 2、未通过校验的字段）返回一个 Promise对象',
+      validateField: '对指定字段进行校验，可传入待校验的表单项的 prop ，或者 prop 用逗号隔开'
     }
   }
 }
