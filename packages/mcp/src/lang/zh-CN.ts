@@ -22,6 +22,15 @@ export default {
     button: {
       description: '按钮组件相关工具集合',
       triggerClick: '按钮点击，点击按钮'
+    },
+    tree: {
+      description: '树形控件组件相关工具集合',
+      setCurrentKey: '请输入id值设置某个节点的当前选中状态',
+      expandHlNode: '请输入id值设置某个节点的展开状态',
+      collapseHlNode: '请输入id值设置某个节点的收起状态',
+      removeNode: '请输入id值删除某个节点',
+      insertBefore: '在一个节点的前面增加一个节点',
+      insertAfter: '在一个节点的后面增加一个节点',
     }
   }
 }
