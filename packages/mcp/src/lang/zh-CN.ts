@@ -24,6 +24,7 @@ export default {
       triggerClick: '按钮点击，点击按钮'
     },
     form: {
+      description: '表单组件相关工具集合，包含获取表单校验、重置表单等功能',
       resetFields: '对整个表单进行重置，将所有字段值重置为初始值并移除校验结果',
       clearValidate: '移除表单项的校验结果，可传入待移除的表单项的 prop ，或者 prop 用逗号隔开，如不传则移除整个表单的校验结果',
       clearValidateAll: '移除整个表单的校验结果',

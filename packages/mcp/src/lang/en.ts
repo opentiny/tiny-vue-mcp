@@ -31,6 +31,8 @@ export default {
       triggerClick: 'Button click, click the button'
     },
      form: {
+      description:
+        'Form component related tool set, including getting form validation, resetting form and other functions',
       resetFields: 'Reset the entire form, resetting all field values to their initial values and removing validation results',
       clearValidate: 'Remove the validation results of the form item, you can pass in the prop of the form item to be removed, or an array of props, if not passed in, the validation results of the entire form will be removed',
       clearValidateAll: 'Remove the validation results of the entire form',
