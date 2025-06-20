@@ -28,6 +28,16 @@ export default {
     button: {
       description: 'Button component related tool set',
       triggerClick: 'trigger button click,click self'
+    },
+    tree: {
+      description: 'Collection of Tools Related to Tree Control Components',
+      setCurrentKey: 'Please enter the ID value to set the current selected state of a node',
+      expandHlNode: 'Please enter the ID value to set the current deployment status of a node',
+      collapseHlNode: 'Please enter the ID value to set the collapsed state of a node',
+      removeNode: 'Please enter the ID value to delete a node',
+      insertBefore: 'Add a node in front of a node',
+      insertAfter: 'Add a node after a node',
+
     }
   }
 }

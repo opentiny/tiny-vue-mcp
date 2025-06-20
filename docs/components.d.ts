@@ -19,5 +19,6 @@ declare module 'vue' {
     TinyQrCode: typeof import('@opentiny/vue-qr-code')['default']
     TinyRobotChat: typeof import('./src/components/tiny-robot-chat.vue')['default']
     TinyTag: typeof import('@opentiny/vue-tag')['default']
+    TinyTree: typeof import('@opentiny/vue-tree')['default']
   }
 }

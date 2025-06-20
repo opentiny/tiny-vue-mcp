@@ -18,6 +18,11 @@ const router = createRouter({
       component: () => import('../views/comprehensive/index.vue')
     },
     {
+      path: '/tree',
+      name: 'Tree',
+      component: () => import('../views/tree/tree.vue')
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
       component: () => import('../views/404/NotFound.vue')
