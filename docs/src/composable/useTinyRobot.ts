@@ -8,7 +8,7 @@ import type { SuggestionItem } from '@opentiny/tiny-robot'
 const difyConfig: AIModelConfig = {
   provider: 'custom',
   apiUrl: 'https://api.dify.ai/v1',
-  apiKey: 'app-H0VJI4LqZ4KskdcA5a07pjXf'
+  apiKey: 'app-mOdkpHWuXoA1lGq4o18NtcOz'
 }
 export function useTinyRobot() {
   const difyModelProvider = new DifyModelProvider(difyConfig)

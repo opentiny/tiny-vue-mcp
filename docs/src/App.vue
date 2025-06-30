@@ -2,7 +2,7 @@
   <StagewiseToolbar v-if="false" :config="stagewiseConfig" />
   <div class="header">
     <div style="color: cornflowerblue; margin-bottom: 30px">
-      页面识别码：https://agent.icjs.ink/sse?sessionId={{ sessionId }}
+      页面识别码：http://www.opentiny.xyz:8080/sse?sessionId={{ sessionId }}
     </div>
     <div class="qr-code">
       <tiny-qr-code :value="sessionUrl" :size="100" color="#1677ff"></tiny-qr-code>
@@ -44,7 +44,7 @@ const sessionUrl = ref('placeholder')
 
 const { sessionId } = useNextClient({
   clientInfo: { name: 'my-project', version: '1.0.0' },
-  proxyOptions: { url: 'http://www.opentiny.xyz/sse', token: '', sessionId: $session.sessionId }
+  proxyOptions: { url: 'http://www.opentiny.xyz:8080/sse', token: '', sessionId: $session.sessionId }
 })
 
 watch(
@@ -57,7 +57,7 @@ watch(
       const encryptedId = CryptoJS.AES.encrypt(newVal, 'secret-session-id').toString()
 
       const secretId = encodeURIComponent(encryptedId)
-      sessionUrl.value = 'http://www.opentiny.xyz?id=' + secretId
+      sessionUrl.value = 'http://www.opentiny.xyz:8080?id=' + secretId
     }
   }
 )
