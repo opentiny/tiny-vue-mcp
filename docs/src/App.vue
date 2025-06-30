@@ -11,7 +11,7 @@
   <div class="app-container">
     <!-- 主体内容区域 -->
     <div class="main-content">
-      <router-view />
+      <Comprehensive />
     </div>
     <div class="right-panel" :class="{ collapsed: !showTinyRobot }">
       <div class="right-panel-header">智能助手操作区</div>
@@ -30,6 +30,7 @@ import { globalConversation, showTinyRobot, $session } from './composable/utils'
 import { IconAi } from '@opentiny/tiny-robot-svgs'
 import CryptoJS from 'crypto-js'
 import { useNextClient } from '@opentiny/next-vue'
+import Comprehensive from './views/comprehensive/index.vue'
 
 const stagewiseConfig = {
   plugins: []
@@ -43,7 +44,7 @@ const sessionUrl = ref('placeholder')
 
 const { sessionId } = useNextClient({
   clientInfo: { name: 'my-project', version: '1.0.0' },
-  proxyOptions: { url: 'https://agent.icjs.ink/sse', token: '', sessionId: $session.sessionId }
+  proxyOptions: { url: 'http://www.opentiny.xyz/sse', token: '', sessionId: $session.sessionId }
 })
 
 watch(
@@ -56,7 +57,7 @@ watch(
       const encryptedId = CryptoJS.AES.encrypt(newVal, 'secret-session-id').toString()
 
       const secretId = encodeURIComponent(encryptedId)
-      sessionUrl.value = 'https://agent.icjs.ink?id=' + secretId
+      sessionUrl.value = 'http://www.opentiny.xyz?id=' + secretId
     }
   }
 )
