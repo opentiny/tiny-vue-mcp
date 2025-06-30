@@ -57,7 +57,7 @@ watch(
       const encryptedId = CryptoJS.AES.encrypt(newVal, 'secret-session-id').toString()
 
       const secretId = encodeURIComponent(encryptedId)
-      sessionUrl.value = 'http://www.opentiny.xyz:8080?id=' + secretId
+      sessionUrl.value = 'http://www.opentiny.xyz:8080/console-next?id=' + secretId
     }
   }
 )
