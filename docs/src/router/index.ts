@@ -23,6 +23,11 @@ const router = createRouter({
       component: () => import('../views/tree/tree.vue')
     },
     {
+      path: '/form',
+      name: 'Form',
+      component: () => import('../views/form/form-validate.vue')
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
       component: () => import('../views/404/NotFound.vue')

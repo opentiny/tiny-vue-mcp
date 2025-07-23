@@ -8,6 +8,7 @@ import { getTreeConfig } from './src/tree'
 import { getBaseSelectConfig } from './src/base-select'
 import { i18n } from './src/utils/locale'
 import { getButtonConfig } from './src/button'
+import { getFormConfig } from './src/form'
 
 export { zhCN, enUS, i18n }
 
@@ -31,7 +32,8 @@ export const getTinyVueMcpConfig = ({ t }: { t?: ((path: string) => string) | nu
       Grid: getGridConfig(),
       Tree: getTreeConfig(),
       BaseSelect: getBaseSelectConfig(),
-      Button: getButtonConfig()
+      Button: getButtonConfig(),
+      Form: getFormConfig()
     }
   }
 }
