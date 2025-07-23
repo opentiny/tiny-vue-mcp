@@ -12,7 +12,7 @@
       :data="data"
       show-checkbox
       highlight-current
-    :default-expanded-keys="['1']"
+      :default-expanded-keys="['1']"
       :check-on-click-node="true"
       :expand-on-click-node="false"
     ></tiny-tree>
@@ -20,37 +20,56 @@
 </template>
 
 <script setup lang="jsx">
-import { ref } from 'vue'
-import { useNextServer } from '@opentiny/next-vue'
+import { ref, onMounted } from 'vue'
+import { createInMemoryTransport, createServer } from '@opentiny/next-sdk'
 const data = ref([
   {
     id: '1',
     label: '操作系统',
     children: [
-      { id: '2', label: ' windows', 
+      {
+        id: '2',
+        label: ' windows',
         children: [
-            { id: '3', label: ' windows 10' },
-            { id: '4', label: ' windows 11' },
-            { id: '5', label: ' windows 12' },
-            { id: '7', label: ' windows 13' }
-        ]
-        },
-      { id: '8', label: 'linux',
-        children: [
-            { id: '9', label: 'linux 10' },
-            { id: '10', label: 'linux 11' },
-            { id: '11', label: 'linux 12' },
-            { id: '12', label: 'linux 13' }
+          { id: '3', label: ' windows 10' },
+          { id: '4', label: ' windows 11' },
+          { id: '5', label: ' windows 12' },
+          { id: '7', label: ' windows 13' }
         ]
       },
-      { id: '13', label: 'macos'},
-      { id: '14', label: 'harmonyOS'},
+      {
+        id: '8',
+        label: 'linux',
+        children: [
+          { id: '9', label: 'linux 10' },
+          { id: '10', label: 'linux 11' },
+          { id: '11', label: 'linux 12' },
+          { id: '12', label: 'linux 13' }
+        ]
+      },
+      { id: '13', label: 'macos' },
+      { id: '14', label: 'harmonyOS' }
     ]
-  },
+  }
 ])
 
-const { server } = useNextServer({
-  serverInfo: { name: 'ecs-console', version: '1.0.0' }
+const server = createServer(
+  {
+    name: 'tree-demo',
+    version: '1.0.0'
+  },
+  {
+    capabilities: {
+      logging: {},
+      resources: { subscribe: true, listChanged: true }
+    }
+  }
+)
+
+server.use(createInMemoryTransport())
+
+onMounted(() => {
+  server.connectTransport()
 })
 </script>
 

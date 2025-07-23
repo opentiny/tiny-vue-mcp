@@ -3,9 +3,9 @@
     <div class="title">
       <div>validate 用法：<tiny-button-group :data="validTypeList" v-model="validType"></tiny-button-group></div>
     </div>
-    <tiny-form 
-      ref="ruleFormRef" 
-      :model="createData"   
+    <tiny-form
+      ref="ruleFormRef"
+      :model="createData"
       :tiny_mcp_config="{
         server,
         business: {
@@ -13,9 +13,9 @@
           description: '表单验证示例'
         }
       }"
-      :rules="rules" 
+      :rules="rules"
       label-width="100px"
-      >
+    >
       <tiny-form-item label="等级" prop="radio">
         <tiny-radio-group v-model="createData.radio" :options="options"></tiny-radio-group>
       </tiny-form-item>
@@ -63,7 +63,7 @@ import {
   TinyButtonGroup
 } from '@opentiny/vue'
 import { iconWarning } from '@opentiny/vue-icon'
-import { useNextServer } from '@opentiny/next-vue'
+import { createInMemoryTransport, createServer } from '@opentiny/next-sdk'
 
 const ruleFormRef = ref()
 function handleClick() {
@@ -135,8 +135,23 @@ function resetForm() {
   ruleFormRef.value.resetFields()
 }
 
-const { server } = useNextServer({
-  serverInfo: { name: 'ecs-form', version: '1.0.0' }
+const server = createServer(
+  {
+    name: 'form-validate',
+    version: '1.0.0'
+  },
+  {
+    capabilities: {
+      logging: {},
+      resources: { subscribe: true, listChanged: true }
+    }
+  }
+)
+
+server.use(createInMemoryTransport())
+
+onMounted(() => {
+  server.connectTransport()
 })
 </script>
 
