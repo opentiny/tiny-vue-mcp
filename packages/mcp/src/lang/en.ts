@@ -32,6 +32,7 @@ export default {
     },
     tree: {
       description: 'Collection of Tools Related to Tree Control Components',
+      getTreeData: 'Obtain table data',
       setCurrentKey: 'Please enter the ID value to set the current selected state of a node',
       expandHlNode: 'Please enter the ID value to set the current deployment status of a node',
       collapseHlNode: 'Please enter the ID value to set the collapsed state of a node',

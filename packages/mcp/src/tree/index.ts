@@ -25,6 +25,13 @@ export const getTreeConfig = () =>
           return { type: 'text', text: 'success' }
         }
       },
+      getTreeData: {
+        paramsSchema: z.boolean().optional().describe(t('ai.tree.getTreeData')),
+        cb: (instance) => {
+          const treeData = instance.data
+          return { type: 'text', text: JSON.stringify(treeData) }
+        }
+      },
       expandHlNode: {
         paramsSchema:  z.string().optional().describe(t('ai.tree.expandHlNode')),
         cb: (instance, value) => {
