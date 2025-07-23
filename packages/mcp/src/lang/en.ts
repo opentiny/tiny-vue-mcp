@@ -29,6 +29,15 @@ export default {
     button: {
       description: 'Button component related tool set',
       triggerClick: 'Button click, click the button'
+    },
+     form: {
+      description:
+        'Form component related tool set, including getting form validation, resetting form and other functions',
+      resetFields: 'Reset the entire form, resetting all field values to their initial values and removing validation results',
+      clearValidate: 'Remove the validation results of the form item, you can pass in the prop of the form item to be removed, or an array of props, if not passed in, the validation results of the entire form will be removed',
+      clearValidateAll: 'Remove the validation results of the entire form',
+      validate: 'Validate the entire form, the parameter is a callback function (the callback function will be called after the validation is completed and passed two parameters: 1, whether the validation is successful 2, the fields that failed validation) returns a Promise object',
+      validateField: 'Validate the specified field by passing in the prop of the form item to be validated, or separating the props with commas'
     }
   }
 }
