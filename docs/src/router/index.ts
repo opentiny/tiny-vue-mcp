@@ -18,6 +18,11 @@ const router = createRouter({
       component: () => import('../views/comprehensive/index.vue')
     },
     {
+      path: '/tree',
+      name: 'Tree',
+      component: () => import('../views/tree/tree.vue')
+    },
+    {
       path: '/form',
       name: 'Form',
       component: () => import('../views/form/form-validate.vue')

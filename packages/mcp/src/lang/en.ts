@@ -30,7 +30,17 @@ export default {
       description: 'Button component related tool set',
       triggerClick: 'Button click, click the button'
     },
-     form: {
+    tree: {
+      description: 'Collection of Tools Related to Tree Control Components',
+      getTreeData: 'Obtain table data',
+      setCurrentKey: 'Please enter the ID value to set the current selected state of a node',
+      expandHlNode: 'Please enter the ID value to set the current deployment status of a node',
+      collapseHlNode: 'Please enter the ID value to set the collapsed state of a node',
+      removeNode: 'Please enter the ID value to delete a node',
+      insertBefore: 'Add a node in front of a node',
+      insertAfter: 'Add a node after a node',
+    },
+    form: {
       description:
         'Form component related tool set, including getting form validation, resetting form and other functions',
       resetFields: 'Reset the entire form, resetting all field values to their initial values and removing validation results',

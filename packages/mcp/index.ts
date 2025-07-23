@@ -4,6 +4,7 @@ import type { Business, ComponentMcpConfig } from './src/utils/defineTool'
 import zhCN from './src/lang/zh-CN'
 import enUS from './src/lang/en'
 import { getGridConfig } from './src/grid'
+import { getTreeConfig } from './src/tree'
 import { getBaseSelectConfig } from './src/base-select'
 import { i18n } from './src/utils/locale'
 import { getButtonConfig } from './src/button'
@@ -29,6 +30,7 @@ export const getTinyVueMcpConfig = ({ t }: { t?: ((path: string) => string) | nu
     version: '0.0.1',
     components: {
       Grid: getGridConfig(),
+      Tree: getTreeConfig(),
       BaseSelect: getBaseSelectConfig(),
       Button: getButtonConfig(),
       Form: getFormConfig()

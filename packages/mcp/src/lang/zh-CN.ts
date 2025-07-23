@@ -23,6 +23,16 @@ export default {
       description: '按钮组件相关工具集合',
       triggerClick: '按钮点击，点击按钮'
     },
+    tree: {
+      description: '树形控件组件相关工具集合',
+      getTreeData: '获取表格数据',
+      setCurrentKey: '设置节点的选中状态,要求数据中包含"id"字段',
+      expandHlNode: '设置节点的展开状态,要求数据中包含"id"字段',
+      collapseHlNode: '设置节点的收起状态,要求数据中包含"id"字段',
+      removeNode: '删除某个节点,要求数据中包含"id"字段',
+      insertBefore: '在一个节点的前面增加一个节点,要求数据中包含"id"字段',
+      insertAfter: '在一个节点的后面增加一个节点,要求数据中包含"id"字段',
+    },
     form: {
       description: '表单组件相关工具集合，包含获取表单校验、重置表单等功能',
       resetFields: '对整个表单进行重置，将所有字段值重置为初始值并移除校验结果',
