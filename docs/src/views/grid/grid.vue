@@ -39,8 +39,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useNextServer } from '@opentiny/next-vue'
+import { ref, onMounted } from 'vue'
+import { createInMemoryTransport, createServer } from '@opentiny/next-sdk'
 
 const tableData = ref(
   Array.from({ length: 10 }, (_, index) => ({
@@ -53,8 +53,23 @@ const tableData = ref(
   }))
 )
 
-const { server } = useNextServer({
-  serverInfo: { name: 'ecs-console', version: '1.0.0' }
+const server = createServer(
+  {
+    name: 'grid-demo',
+    version: '1.0.0'
+  },
+  {
+    capabilities: {
+      logging: {},
+      resources: { subscribe: true, listChanged: true }
+    }
+  }
+)
+
+server.use(createInMemoryTransport())
+
+onMounted(() => {
+  server.connectTransport()
 })
 </script>
 

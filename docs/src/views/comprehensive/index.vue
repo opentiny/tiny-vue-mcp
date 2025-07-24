@@ -61,12 +61,6 @@
       >
         <tiny-grid-column type="index" width="50" />
         <tiny-grid-column type="selection" width="50" />
-        <tiny-grid-column title="商品图片" width="100">
-          <template #default="{ row }">
-            <tiny-image :src="row.image" :preview-src-list="[row.image]" class="product-image" />
-          </template>
-        </tiny-grid-column>
-
         <tiny-grid-column field="name" title="商品名称" :editor="{ component: 'input' }" />
         <tiny-grid-column
           field="price"
@@ -125,10 +119,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import productsData from './products.json'
 import { $local } from '../../composable/utils'
-import { useNextServer } from '@opentiny/next-vue'
+import { createInMemoryTransport, createServer } from '@opentiny/next-sdk'
 
 if (!$local.products) {
   $local.products = productsData
@@ -193,8 +187,23 @@ const saveProduct = () => {
   }, 1000)
 }
 
-const { server } = useNextServer({
-  serverInfo: { name: 'comprehensive-config', version: '1.0.0' }
+const server = createServer(
+  {
+    name: 'comprehensive-config',
+    version: '1.0.0'
+  },
+  {
+    capabilities: {
+      logging: {},
+      resources: { subscribe: true, listChanged: true }
+    }
+  }
+)
+
+server.use(createInMemoryTransport())
+
+onMounted(() => {
+  server.connectTransport()
 })
 </script>
 
