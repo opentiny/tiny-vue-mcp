@@ -10,6 +10,31 @@
       <tiny-robot-chat />
     </div>
     <IconAi @click="showTinyRobot = !showTinyRobot" class="style-settings-icon"></IconAi>
+    <tiny-dialog-box
+      v-model:visible="boxVisibility"
+      :close-on-click-modal="false"
+      title="请填写您的LLM信息"
+      :show-close="false"
+      width="30%"
+    >
+      <div>
+        <tiny-form ref="formRef" :model="createData" label-width="120px">
+          <tiny-form-item label="LLM URL" prop="llmUrl" :rules="{ required: true, messages: '必填', trigger: 'blur' }">
+            <tiny-input v-model="createData.llmUrl"></tiny-input>
+          </tiny-form-item>
+          <tiny-form-item
+            label="API Key"
+            prop="llmApiKey"
+            :rules="{ required: true, messages: '必填', trigger: 'blur' }"
+          >
+            <tiny-input v-model="createData.llmApiKey"></tiny-input>
+          </tiny-form-item>
+          <tiny-form-item>
+            <tiny-button @click="submit" type="primary">保存</tiny-button>
+          </tiny-form-item>
+        </tiny-form>
+      </div>
+    </tiny-dialog-box>
   </div>
 </template>
 
@@ -18,6 +43,27 @@ import '@opentiny/icons/style/all.css'
 import TinyRobotChat from './components/tiny-robot-chat.vue'
 import { showTinyRobot } from './composable/utils'
 import { IconAi } from '@opentiny/tiny-robot-svgs'
+import { reactive, ref } from 'vue'
+import { $local, isEnvLLMDefined, isLocalLLMDefined } from './composable/utils'
+const boxVisibility = ref(false)
+const formRef = ref()
+const createData = reactive({
+  llmUrl: $local.llmUrl || import.meta.env.VITE_LLM_URL,
+  llmApiKey: $local.llmApiKey || import.meta.env.VITE_LLM_API_KEY
+})
+
+const submit = () => {
+  formRef.value.validate().then(() => {
+    $local.llmUrl = createData.llmUrl
+    $local.llmApiKey = createData.llmApiKey
+    boxVisibility.value = false
+    window.location.reload()
+  })
+}
+
+if (!isEnvLLMDefined && !isLocalLLMDefined) {
+  boxVisibility.value = true
+}
 </script>
 
 <style scoped>
