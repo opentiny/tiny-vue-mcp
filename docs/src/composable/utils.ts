@@ -7,7 +7,9 @@ import type { ChatMessage, ChatCompletionResponse, StreamHandler } from '@openti
 import type { ChatCompletionRequest } from '@opentiny/tiny-robot-kit'
 import { ref, type Ref } from 'vue'
 
-export { $local, $session } from './storage'
+import { $local, $session } from './storage'
+
+export { $local, $session }
 
 export const showTinyRobot = ref(true)
 
@@ -15,6 +17,11 @@ export const globalConversation = {
   id: '',
   sessionId: ''
 }
+
+// 如果环境变量和本地变量都未定义，则提示用户填写
+export const isEnvLLMDefined = Boolean(import.meta.env.VITE_LLM_API_KEY && import.meta.env.VITE_LLM_URL)
+export const isLocalLLMDefined = Boolean($local.llmUrl && $local.llmApiKey)
+
 /**
  * 处理SSE流式响应
  * @param response fetch响应对象

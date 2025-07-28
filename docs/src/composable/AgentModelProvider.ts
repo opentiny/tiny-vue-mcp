@@ -5,6 +5,7 @@ import type { StreamHandler } from '@opentiny/tiny-robot-kit'
 import { BaseModelProvider } from '@opentiny/tiny-robot-kit'
 import type { AIModelConfig } from '@opentiny/tiny-robot-kit'
 import { reactive } from 'vue'
+import { $local, isEnvLLMDefined, isLocalLLMDefined } from './utils'
 
 // 创建nextClient
 const nextClient = createClient(
@@ -22,7 +23,6 @@ const nextClient = createClient(
 )
 
 nextClient.use(createInMemoryTransport())
-
 nextClient.connectTransport()
 
 let lastContent: any
@@ -36,7 +36,7 @@ const onToolCallChain = (extra: any, handler: StreamHandler) => {
     title: delta.toolCall.function.name,
     content: delta.toolCall.callToolContent
       ? '工具调用结果：' + delta.toolCall.callToolContent
-      : `\n正在调用工具${delta.toolCall.function.name}`
+      : `\n正在调用工具${delta.toolCall.function.name}...`
   })
   if (!lastToolCall || lastToolCall.items?.[0]?.id !== infoItem.id) {
     lastToolCall = {
@@ -55,13 +55,10 @@ const onToolCallChain = (extra: any, handler: StreamHandler) => {
   }
 }
 
-const apiKey = import.meta.env.VITE_LLM_API_KEY
-const url = import.meta.env.VITE_LLM_URL
-
 const mcpHost = createMCPHost({
   llmOption: {
-    url,
-    apiKey,
+    url: isEnvLLMDefined ? import.meta.env.VITE_LLM_URL : $local.llmUrl || '',
+    apiKey: isEnvLLMDefined ? import.meta.env.VITE_LLM_API_KEY : $local.llmApiKey || '',
     dangerouslyAllowBrowser: true,
     model: 'deepseek-chat',
     llm: 'deepseek'

@@ -44,4 +44,9 @@ pnpm build
 
 ### 如何体验？
 
-在 `docs/.env` 中配置 `VITE_LLM_API_KEY` (LLM大模型的API_KEY 目前只支持兼容OpenAI协议的大模型) 和 `VITE_LLM_URL` (LLM大模型的URL) 后，运行 `pnpm dev` 即可体验。
+体验方式有两种（环境变量和本地缓存，优先级：环境变量 > 本地缓存）：
+
+1. 在 `docs/.env` 中配置 `VITE_LLM_API_KEY` (LLM大模型的API_KEY 目前只支持兼容OpenAI协议的大模型) 和 `VITE_LLM_URL` (LLM大模型的URL) 后，运行 `pnpm dev` 即可体验。
+2. 如果不想配置环境变量，页面启动后会提示用户填写LLM信息，填写后会自动保存到本地缓存，下次启动时会自动加载。
+
+![填写LLM信息](/docs/public/llm.png)
