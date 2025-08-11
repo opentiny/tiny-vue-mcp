@@ -43,8 +43,10 @@ import '@opentiny/icons/style/all.css'
 import TinyRobotChat from './components/tiny-robot-chat.vue'
 import { showTinyRobot } from './composable/utils'
 import { IconAi } from '@opentiny/tiny-robot-svgs'
-import { reactive, ref } from 'vue'
+import { provide, reactive, ref } from 'vue'
 import { $local, isEnvLLMDefined, isLocalLLMDefined } from './composable/utils'
+import { createMessageChannelServerTransport } from '@opentiny/next-sdk'
+
 const boxVisibility = ref(false)
 const formRef = ref()
 const createData = reactive({
@@ -64,6 +66,13 @@ const submit = () => {
 if (!isEnvLLMDefined && !isLocalLLMDefined) {
   boxVisibility.value = true
 }
+
+const transport = createMessageChannelServerTransport('endpoint')
+transport.onerror = (error) => {
+  console.error(`ECS MessageChannel ServerTransport error:`, error)
+}
+
+provide('transport', transport)
 </script>
 
 <style scoped>

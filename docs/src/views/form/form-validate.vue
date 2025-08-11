@@ -48,8 +48,8 @@
   </div>
 </template>
 
-<script setup>
-import { ref, reactive } from 'vue'
+<script setup lang="ts">
+import { ref, reactive, onMounted, inject } from 'vue'
 import {
   TinyForm,
   TinyFormItem,
@@ -63,7 +63,7 @@ import {
   TinyButtonGroup
 } from '@opentiny/vue'
 import { iconWarning } from '@opentiny/vue-icon'
-import { createInMemoryTransport, createServer } from '@opentiny/next-sdk'
+import { WebMcpServer } from '@opentiny/next-sdk'
 
 const ruleFormRef = ref()
 function handleClick() {
@@ -135,7 +135,7 @@ function resetForm() {
   ruleFormRef.value.resetFields()
 }
 
-const server = createServer(
+const server = new WebMcpServer(
   {
     name: 'form-validate',
     version: '1.0.0'
@@ -148,10 +148,8 @@ const server = createServer(
   }
 )
 
-server.use(createInMemoryTransport())
-
 onMounted(() => {
-  server.connectTransport()
+  server.connect(inject('transport') as any)
 })
 </script>
 

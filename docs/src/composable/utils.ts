@@ -1,8 +1,3 @@
-/**
- * 工具函数模块
- * 提供一些实用的辅助函数
- */
-
 import type { ChatMessage, ChatCompletionResponse, StreamHandler } from '@opentiny/tiny-robot-kit'
 import type { ChatCompletionRequest } from '@opentiny/tiny-robot-kit'
 import { ref, type Ref } from 'vue'

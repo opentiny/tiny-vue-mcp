@@ -119,10 +119,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, inject } from 'vue'
 import productsData from './products.json'
 import { $local } from '../../composable/utils'
-import { createInMemoryTransport, createServer } from '@opentiny/next-sdk'
+import { WebMcpServer } from '@opentiny/next-sdk'
 
 if (!$local.products) {
   $local.products = productsData
@@ -187,11 +187,8 @@ const saveProduct = () => {
   }, 1000)
 }
 
-const server = createServer(
-  {
-    name: 'comprehensive-config',
-    version: '1.0.0'
-  },
+const server = new WebMcpServer(
+  { name: 'comprehensive-config', version: '1.0.0' },
   {
     capabilities: {
       logging: {},
@@ -200,10 +197,8 @@ const server = createServer(
   }
 )
 
-server.use(createInMemoryTransport())
-
 onMounted(() => {
-  server.connectTransport()
+  server.connect(inject('transport') as any)
 })
 </script>
 

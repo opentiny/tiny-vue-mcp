@@ -19,9 +19,10 @@
   </div>
 </template>
 
-<script setup lang="jsx">
-import { ref, onMounted } from 'vue'
-import { createInMemoryTransport, createServer } from '@opentiny/next-sdk'
+<script setup lang="tsx">
+import { ref, onMounted, inject } from 'vue'
+import { WebMcpServer } from '@opentiny/next-sdk'
+
 const data = ref([
   {
     id: '1',
@@ -53,7 +54,7 @@ const data = ref([
   }
 ])
 
-const server = createServer(
+const server = new WebMcpServer(
   {
     name: 'tree-demo',
     version: '1.0.0'
@@ -66,10 +67,8 @@ const server = createServer(
   }
 )
 
-server.use(createInMemoryTransport())
-
 onMounted(() => {
-  server.connectTransport()
+  server.connect(inject('transport') as any)
 })
 </script>
 
