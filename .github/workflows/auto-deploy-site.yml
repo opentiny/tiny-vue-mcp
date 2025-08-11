@@ -1,0 +1,84 @@
+# GitHub Actions 工作流定义文件
+# 本文件定义了自动构建和部署VitePress站点到GitHub Pages的完整流程
+name: Deploy VitePress site to Pages
+
+on:
+  # 触发条件1: 当有代码推送到main分支时自动触发工作流
+  push:
+    branches: [main]
+
+  # 触发条件2: 允许从GitHub仓库的Actions选项卡手动触发工作流
+  workflow_dispatch:
+
+# 权限设置: 工作流需要的GitHub令牌权限配置
+permissions:
+  contents: read # 允许读取仓库内容
+  pages: write # 允许写入GitHub Pages
+  id-token: write # 允许写入身份令牌，用于身份验证
+
+# 并发控制: 确保多次触发时不会相互干扰
+concurrency:
+  group: pages # 并发组名称，基于pages服务
+  cancel-in-progress: false # 不取消正在进行的部署，确保部署过程不被中断
+
+jobs:
+  # 第一个任务: 构建站点
+  build:
+    runs-on: ubuntu-latest # 使用最新的Ubuntu运行环境
+    steps:
+      # 步骤1: 检出代码库
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 步骤2: 设置pnpm包管理器(第一次)
+      - name: Setup pnpm - initial
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9 # 使用pnpm 9版本
+
+      # 步骤3: 设置Node.js环境
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # 使用Node.js 20版本
+
+      # 步骤4: 再次设置pnpm (确保与Node.js配合正常)
+      - name: Setup pnpm - final
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+          run_install: false # 不自动安装依赖，后面单独安装
+
+      # 步骤5: 配置GitHub Pages环境
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v4
+
+      # 步骤6: 安装项目依赖
+      - name: Install project dependencies
+        run: pnpm i # 使用pnpm安装所有依赖
+
+      # 步骤7: 构建站点
+      - name: Build site
+        run: pnpm run build # 执行构建命令，生成静态网站文件
+
+      # 步骤8: 上传构建产物
+      - name: Upload build artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist # 上传dist目录作为部署内容
+
+  # 第二个任务: 部署到GitHub Pages
+  deploy:
+    environment:
+      name: github-pages # 部署环境名称
+      url: ${{ steps.deployment.outputs.page_url }} # 部署后的URL(动态获取)
+    needs: build # 依赖build任务，即build完成后才会执行deploy
+    runs-on: ubuntu-latest # 同样使用最新的Ubuntu环境
+    name: Deploy to Pages
+    steps:
+      # 唯一步骤: 将构建产物部署到GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment # 步骤ID，用于获取输出变量
+        uses: actions/deploy-pages@v4 # 使用官方部署Pages的Action
