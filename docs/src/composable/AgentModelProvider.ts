@@ -21,7 +21,7 @@ const onToolCallChain = (part: any, handler: StreamHandler, lastToolCall: any) =
     const infoItem = reactive({
       id: part.id,
       title: part.toolName,
-      content: ` \n\n 正在调用工具${part.toolName}...`
+      content: ` \n\n 正在调用工具${part.toolName}...参数：`
     })
     lastToolCall.items.push(infoItem)
     handler.onMessage(lastToolCall)
@@ -59,7 +59,6 @@ export class AgentModelProvider extends BaseModelProvider {
     const mcpClient = await createMCPClient({
       transport: transport
     })
-
     const tools = await mcpClient.tools()
     const lastToolCall = {
       type: 'chain',
@@ -69,10 +68,7 @@ export class AgentModelProvider extends BaseModelProvider {
       model: deepseek('deepseek-chat'),
       tools,
       prompt: lastMessage,
-      stopWhen: stepCountIs(5),
-      onFinish: async () => {
-        await mcpClient.close()
-      }
+      stopWhen: stepCountIs(5)
     })
 
     const content = reactive({
@@ -99,10 +95,8 @@ export class AgentModelProvider extends BaseModelProvider {
       if (part.type === 'text-end') {
         content.content += '\n\n '
       }
-
-      if (part.type === 'finish') {
-        handler.onDone()
-      }
     }
+
+    handler.onDone()
   }
 }
