@@ -63,6 +63,11 @@ jobs:
       - name: Build site
         run: pnpm run build:docs # 执行构建命令，生成静态网站文件
 
+      - name: Repair build artifact
+        run: |
+          sudo chmod -R 777 ./docs/dist
+          cp ./docs/dist/index.html ./docs/dist/404.html
+
       # 步骤8: 上传构建产物
       - name: Upload build artifact
         uses: actions/upload-pages-artifact@v3
