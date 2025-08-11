@@ -34,7 +34,6 @@ export const defineTool = ({ componentMcpConfig, instance, server, business }: D
   const description = `${business.description}-${componentMcpConfig.description}`
   const paramsSchema = componentMcpConfig.paramsSchema || {}
   const cb = (args: Record<string, any>) => {
-    debugger
     return componentMcpConfig.cb(instance, args)
   }
 

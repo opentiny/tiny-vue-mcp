@@ -20,8 +20,8 @@ const onToolCallChain = (part: any, handler: StreamHandler, lastToolCall: any) =
   if (part.type == 'tool-input-start') {
     const infoItem = reactive({
       id: part.id,
-      title: part.name,
-      content: `\n正在调用工具${part.name}...`
+      title: part.toolName,
+      content: ` \n\n 正在调用工具${part.toolName}...`
     })
     lastToolCall.items.push(infoItem)
     handler.onMessage(lastToolCall)
@@ -37,7 +37,7 @@ const onToolCallChain = (part: any, handler: StreamHandler, lastToolCall: any) =
   if (part.type == 'tool-result') {
     const find = lastToolCall.items.find((item: any) => item.id === part.toolCallId)
     if (find) {
-      find.content += part.output.content[0].text
+      find.content = `\n\n 工具调用完成，结果：${part.output.content[0].text} \n\n  `
     }
   }
 }
@@ -84,21 +84,9 @@ export class AgentModelProvider extends BaseModelProvider {
       console.log(part, part.type)
 
       // 节点开始
-      if (part.type === 'start') {
+      if (part.type === 'text-start') {
         handler.onMessage(content)
       }
-
-      // if (part.type == 'tool-input-start') {
-      //   content.content += `正在调用工具：${part.toolName}，\n\n  参数：`
-      // }
-
-      // if (part.type == 'tool-input-delta') {
-      //   content.content += part.delta
-      // }
-
-      // if (part.type == 'tool-result') {
-      //   content.content += `\n\n  工具调用完成，结果：${part.output.content[0].text} \n\n  `
-      // }
 
       if (part.type.startsWith('tool-')) {
         onToolCallChain(part, handler, lastToolCall)
@@ -106,6 +94,14 @@ export class AgentModelProvider extends BaseModelProvider {
 
       if (part.type === 'text-delta') {
         content.content += part.text
+      }
+
+      if (part.type === 'text-end') {
+        content.content += '\n\n '
+      }
+
+      if (part.type === 'finish') {
+        handler.onDone()
       }
     }
   }
