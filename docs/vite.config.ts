@@ -11,6 +11,7 @@ export default defineConfig(() => {
   dotenv.config({ path: '.env' })
 
   return {
+    base: '/tiny-vue-mcp/',
     // 注入环境变量到前端代码
     define: {
       'process.env': {

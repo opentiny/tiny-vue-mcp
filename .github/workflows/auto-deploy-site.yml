@@ -1,11 +1,11 @@
 # GitHub Actions 工作流定义文件
-# 本文件定义了自动构建和部署VitePress站点到GitHub Pages的完整流程
-name: Deploy VitePress site to Pages
+# 本文件定义了自动构建和部署站点到GitHub Pages的完整流程
+name: Deploy site to Pages
 
 on:
   # 触发条件1: 当有代码推送到main分支时自动触发工作流
   push:
-    branches: [main]
+    branches: [main, zzc/*]
 
   # 触发条件2: 允许从GitHub仓库的Actions选项卡手动触发工作流
   workflow_dispatch:
