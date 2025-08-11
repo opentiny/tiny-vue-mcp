@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { TinyVueSingleResolver } from '@opentiny/unplugin-tiny-vue'
-
+import VueJsx from '@vitejs/plugin-vue-jsx'
 // https://vite.dev/config/
 export default defineConfig(() => {
   // 加载 .env 文件中的环境变量
@@ -19,6 +19,7 @@ export default defineConfig(() => {
     },
     plugins: [
       vue(),
+      VueJsx(),
       Components({
         resolvers: [TinyVueSingleResolver]
       }),

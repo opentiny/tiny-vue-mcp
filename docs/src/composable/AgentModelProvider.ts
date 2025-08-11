@@ -10,8 +10,6 @@ import { streamText } from 'ai'
 import { experimental_createMCPClient as createMCPClient, stepCountIs } from 'ai'
 import { createMessageChannelClientTransport } from '@opentiny/next-sdk'
 
-const transport = createMessageChannelClientTransport('endpoint')
-
 const deepseek = createDeepSeek({
   apiKey: import.meta.env.VITE_LLM_API_KEY ?? ''
 })
@@ -43,8 +41,10 @@ const onToolCallChain = (part: any, handler: StreamHandler, lastToolCall: any) =
 }
 
 export class AgentModelProvider extends BaseModelProvider {
+  transport: any
   constructor(config: AIModelConfig) {
     super(config)
+    this.transport = createMessageChannelClientTransport('endpoint')
   }
 
   /** 同步请示不需要实现 */
@@ -57,7 +57,7 @@ export class AgentModelProvider extends BaseModelProvider {
     const lastMessage = request.messages[request.messages.length - 1].content
     // 创建nextClient
     const mcpClient = await createMCPClient({
-      transport: transport
+      transport: this.transport
     })
     const tools = await mcpClient.tools()
     const lastToolCall = {

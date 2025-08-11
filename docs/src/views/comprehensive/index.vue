@@ -7,33 +7,11 @@
       <div class="button-box">
         <div class="button-box-left">
           <tiny-input v-model="searchQuery" placeholder="搜索商品名称" clearable />
-          <tiny-base-select
-            v-model="statusFilter"
-            placeholder="商品状态"
-            clearable
-            :tiny_mcp_config="{
-              server,
-              business: {
-                id: 'product-status-select',
-                description: '商品状态的选择器'
-              }
-            }"
-          >
+          <tiny-base-select v-model="statusFilter" placeholder="商品状态" clearable>
             <tiny-option label="上架" value="on" />
             <tiny-option label="下架" value="off" />
           </tiny-base-select>
-          <tiny-base-select
-            v-model="categoryFilter"
-            placeholder="商品分类"
-            clearable
-            :tiny_mcp_config="{
-              server,
-              business: {
-                id: 'product-category-select',
-                description: '商品分类的选择器'
-              }
-            }"
-          >
+          <tiny-base-select v-model="categoryFilter" placeholder="商品分类" clearable>
             <tiny-option label="手机" value="phones" />
             <tiny-option label="笔记本" value="laptops" />
             <tiny-option label="平板" value="tablets" />
