@@ -61,13 +61,13 @@ jobs:
 
       # 步骤7: 构建站点
       - name: Build site
-        run: pnpm run build # 执行构建命令，生成静态网站文件
+        run: pnpm run build:docs # 执行构建命令，生成静态网站文件
 
       # 步骤8: 上传构建产物
       - name: Upload build artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist # 上传dist目录作为部署内容
+          path: docs/dist # 上传dist目录作为部署内容
 
   # 第二个任务: 部署到GitHub Pages
   deploy:
