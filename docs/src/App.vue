@@ -6,8 +6,8 @@
       <router-view />
     </div>
     <div class="right-panel" :class="{ collapsed: !showTinyRobot }">
-      <tiny-robot-chat v-if="route.query.dialog !== 'ant'" />
-      <ant-design-x v-if="route.query.dialog === 'ant'" />
+      <tiny-robot-chat v-if="!isAntDesignX" />
+      <ant-design-x v-else />
     </div>
     <IconAi @click="showTinyRobot = !showTinyRobot" class="style-settings-icon"></IconAi>
     <tiny-dialog-box
@@ -47,10 +47,9 @@ import { IconAi } from '@opentiny/tiny-robot-svgs'
 import { provide, reactive, ref } from 'vue'
 import { $local, isEnvLLMDefined, isLocalLLMDefined } from './composable/utils'
 import { createMessageChannelServerTransport } from '@opentiny/next-sdk'
-import { useRoute } from 'vue-router' // 导入useRoute来获取路由信息
 
 // 获取当前路由信息
-const route = useRoute()
+const isAntDesignX = location.href.includes('ant')
 
 const boxVisibility = ref(false)
 const formRef = ref()
