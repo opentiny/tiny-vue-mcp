@@ -173,6 +173,10 @@ const [agent] = useXAgent<string, { message: string }, string>({
         content += part.text
       }
 
+      if (part.type === 'error') {
+        content += `\n\n 出错啦：${part.error.message}`
+      }
+
       onUpdate(content)
     }
 
@@ -223,11 +227,14 @@ const items = computed<BubbleListProps['items']>(() => {
   if (messages.value.length === 0) {
     return [{ content: placeholderNode, variant: 'borderless' }]
   }
-  return messages.value.map(({ id, message, status }) => ({
-    key: id,
-    role: status === 'local' ? 'local' : 'ai',
-    content: message ? renderMarkdown(message) : ''
-  }))
+
+  return messages.value.map(({ id, message, status }) => {
+    return {
+      key: id,
+      role: status === 'local' ? 'local' : 'ai',
+      content: message ? renderMarkdown(message) : ''
+    }
+  })
 })
 </script>
 
