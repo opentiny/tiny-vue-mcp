@@ -11,18 +11,21 @@ import { experimental_createMCPClient as createMCPClient, stepCountIs } from 'ai
 import { createMessageChannelClientTransport } from '@opentiny/next-sdk'
 
 const deepseek = createDeepSeek({
-  apiKey: import.meta.env.VITE_LLM_API_KEY ?? ''
+  apiKey: 'sk-trial',
+  baseURL: 'https://agent.opentiny.design/api/v1/ai'
 })
 
-const onToolCallChain = (part: any, handler: StreamHandler, lastToolCall: any) => {
+const onToolCallChain = (part: any, handler: StreamHandler, lastToolCall: any, isFirstToolCall: boolean) => {
   if (part.type == 'tool-input-start') {
     const infoItem = reactive({
       id: part.id,
       title: part.toolName,
-      content: ` \n\n 正在调用工具${part.toolName}...参数：`
+      content: ` \n\n 正在调用工具${part.toolName}，参数：`
     })
     lastToolCall.items.push(infoItem)
-    handler.onMessage(lastToolCall)
+    if (isFirstToolCall) {
+      handler.onMessage(lastToolCall)
+    }
   }
 
   if (part.type == 'tool-input-delta') {
@@ -35,7 +38,7 @@ const onToolCallChain = (part: any, handler: StreamHandler, lastToolCall: any) =
   if (part.type == 'tool-result') {
     const find = lastToolCall.items.find((item: any) => item.id === part.toolCallId)
     if (find) {
-      find.content = `\n\n 工具调用完成，结果：${part.output.content[0].text} \n\n  `
+      find.content += `\n\n 工具调用成功 \n\n  `
     }
   }
 }
@@ -65,7 +68,7 @@ export class AgentModelProvider extends BaseModelProvider {
       items: []
     }
     const result = streamText({
-      model: deepseek('deepseek-chat'),
+      model: deepseek('deepseek-ai/DeepSeek-V3'),
       tools,
       prompt: lastMessage,
       stopWhen: stepCountIs(5)
@@ -76,6 +79,8 @@ export class AgentModelProvider extends BaseModelProvider {
       content: ''
     })
 
+    let isFirstToolCall = true
+
     for await (const part of result.fullStream) {
       console.log(part, part.type)
 
@@ -85,7 +90,8 @@ export class AgentModelProvider extends BaseModelProvider {
       }
 
       if (part.type.startsWith('tool-')) {
-        onToolCallChain(part, handler, lastToolCall)
+        onToolCallChain(part, handler, lastToolCall, isFirstToolCall)
+        isFirstToolCall = false
       }
 
       if (part.type === 'text-delta') {
