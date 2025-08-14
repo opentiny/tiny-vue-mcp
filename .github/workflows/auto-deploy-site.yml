@@ -1,6 +1,6 @@
 # GitHub Actions 工作流定义文件
-# 本文件定义了自动构建和部署VitePress站点到GitHub Pages的完整流程
-name: Deploy VitePress site to Pages
+# 本文件定义了自动构建和部署站点到GitHub Pages的完整流程
+name: Deploy site to Pages
 
 on:
   # 触发条件1: 当有代码推送到main分支时自动触发工作流
@@ -61,13 +61,18 @@ jobs:
 
       # 步骤7: 构建站点
       - name: Build site
-        run: pnpm run build # 执行构建命令，生成静态网站文件
+        run: pnpm run build:docs # 执行构建命令，生成静态网站文件
+
+      - name: Repair build artifact
+        run: |
+          sudo chmod -R 777 ./docs/dist
+          cp ./docs/dist/index.html ./docs/dist/404.html
 
       # 步骤8: 上传构建产物
       - name: Upload build artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist # 上传dist目录作为部署内容
+          path: docs/dist # 上传dist目录作为部署内容
 
   # 第二个任务: 部署到GitHub Pages
   deploy:

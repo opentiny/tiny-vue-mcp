@@ -50,6 +50,7 @@ export const getGridConfig = () =>
         cb: (instance, value) => {
           const targetRow = instance.getRowById(value._RID)
           if (targetRow) {
+            instance.scrollToRow(targetRow)
             instance.setSelection(targetRow, true)
             return { type: 'text', text: 'success' }
           }

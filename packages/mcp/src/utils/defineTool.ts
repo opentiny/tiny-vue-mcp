@@ -37,5 +37,5 @@ export const defineTool = ({ componentMcpConfig, instance, server, business }: D
     return componentMcpConfig.cb(instance, args)
   }
 
-  server.tool(name, description, paramsSchema, cb)
+  server.registerTool(name, { title: name, description, inputSchema: paramsSchema }, cb)
 }

@@ -7,33 +7,11 @@
       <div class="button-box">
         <div class="button-box-left">
           <tiny-input v-model="searchQuery" placeholder="搜索商品名称" clearable />
-          <tiny-base-select
-            v-model="statusFilter"
-            placeholder="商品状态"
-            clearable
-            :tiny_mcp_config="{
-              server,
-              business: {
-                id: 'product-status-select',
-                description: '商品状态的选择器'
-              }
-            }"
-          >
+          <tiny-base-select v-model="statusFilter" placeholder="商品状态" clearable>
             <tiny-option label="上架" value="on" />
             <tiny-option label="下架" value="off" />
           </tiny-base-select>
-          <tiny-base-select
-            v-model="categoryFilter"
-            placeholder="商品分类"
-            clearable
-            :tiny_mcp_config="{
-              server,
-              business: {
-                id: 'product-category-select',
-                description: '商品分类的选择器'
-              }
-            }"
-          >
+          <tiny-base-select v-model="categoryFilter" placeholder="商品分类" clearable>
             <tiny-option label="手机" value="phones" />
             <tiny-option label="笔记本" value="laptops" />
             <tiny-option label="平板" value="tablets" />
@@ -119,10 +97,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, inject } from 'vue'
 import productsData from './products.json'
-import { $local } from '../../composable/utils'
-import { createInMemoryTransport, createServer } from '@opentiny/next-sdk'
+import { $local } from '../../composable/storage'
+import { WebMcpServer } from '@opentiny/next-sdk'
 
 if (!$local.products) {
   $local.products = productsData
@@ -187,23 +165,11 @@ const saveProduct = () => {
   }, 1000)
 }
 
-const server = createServer(
-  {
-    name: 'comprehensive-config',
-    version: '1.0.0'
-  },
-  {
-    capabilities: {
-      logging: {},
-      resources: { subscribe: true, listChanged: true }
-    }
-  }
-)
+const mcpServer = inject('mcpServer') as { transport: any; capabilities: any }
+const server = new WebMcpServer({ name: 'comprehensive', version: '1.0.0' }, { capabilities: mcpServer.capabilities })
 
-server.use(createInMemoryTransport())
-
-onMounted(() => {
-  server.connectTransport()
+onMounted(async () => {
+  await server.connect(mcpServer.transport)
 })
 </script>
 

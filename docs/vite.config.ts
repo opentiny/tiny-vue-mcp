@@ -4,13 +4,14 @@ import dotenv from 'dotenv'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { TinyVueSingleResolver } from '@opentiny/unplugin-tiny-vue'
-
+import VueJsx from '@vitejs/plugin-vue-jsx'
 // https://vite.dev/config/
 export default defineConfig(() => {
   // 加载 .env 文件中的环境变量
   dotenv.config({ path: '.env' })
 
   return {
+    base: '/tiny-vue-mcp/',
     // 注入环境变量到前端代码
     define: {
       'process.env': {
@@ -19,6 +20,7 @@ export default defineConfig(() => {
     },
     plugins: [
       vue(),
+      VueJsx(),
       Components({
         resolvers: [TinyVueSingleResolver]
       }),

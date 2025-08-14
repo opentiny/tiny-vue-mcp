@@ -38,9 +38,9 @@
   </div>
 </template>
 
-<script setup>
-import { ref, onMounted } from 'vue'
-import { createInMemoryTransport, createServer } from '@opentiny/next-sdk'
+<script setup lang="ts">
+import { ref, onMounted, inject } from 'vue'
+import { WebMcpServer } from '@opentiny/next-sdk'
 
 const tableData = ref(
   Array.from({ length: 10 }, (_, index) => ({
@@ -53,23 +53,11 @@ const tableData = ref(
   }))
 )
 
-const server = createServer(
-  {
-    name: 'grid-demo',
-    version: '1.0.0'
-  },
-  {
-    capabilities: {
-      logging: {},
-      resources: { subscribe: true, listChanged: true }
-    }
-  }
-)
+const mcpServer = inject('mcpServer') as { transport: any; capabilities: any }
+const server = new WebMcpServer({ name: 'grid', version: '1.0.0' }, { capabilities: mcpServer.capabilities })
 
-server.use(createInMemoryTransport())
-
-onMounted(() => {
-  server.connectTransport()
+onMounted(async () => {
+  await server.connect(mcpServer.transport)
 })
 </script>
 
