@@ -54,21 +54,11 @@ const data = ref([
   }
 ])
 
-const server = new WebMcpServer(
-  {
-    name: 'tree-demo',
-    version: '1.0.0'
-  },
-  {
-    capabilities: {
-      logging: {},
-      resources: { subscribe: true, listChanged: true }
-    }
-  }
-)
+const mcpServer = inject('mcpServer') as { transport: any; capabilities: any }
+const server = new WebMcpServer({ name: 'tree', version: '1.0.0' }, { capabilities: mcpServer.capabilities })
 
-onMounted(() => {
-  server.connect(inject('transport') as any)
+onMounted(async () => {
+  await server.connect(mcpServer.transport)
 })
 </script>
 

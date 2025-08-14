@@ -4,9 +4,8 @@ import { initI18n, t } from '@opentiny/vue-locale'
 import router from './router'
 import App from './App.vue'
 import { registerMcpConfig } from '@opentiny/vue-common'
-// tiny-robot 对话框
-import '@opentiny/tiny-robot/dist/style.css'
 import './style.css'
+import '@opentiny/next-remoter/dist/style.css'
 import { createMcpTools, getTinyVueMcpConfig, zhCN, enUS } from '@opentiny/tiny-vue-mcp'
 
 const app = createApp(App)

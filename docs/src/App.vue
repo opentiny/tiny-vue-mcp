@@ -1,82 +1,66 @@
 <template>
-  <div class="header"></div>
-  <div class="app-container">
-    <!-- 主体内容区域 -->
-    <div class="main-content">
-      <router-view />
-    </div>
-    <div class="right-panel" :class="{ collapsed: !showTinyRobot }">
-      <tiny-robot-chat v-if="!isAntDesignX" />
-      <ant-design-x v-else />
-    </div>
-    <IconAi @click="showTinyRobot = !showTinyRobot" class="style-settings-icon"></IconAi>
-    <tiny-dialog-box
-      v-model:visible="boxVisibility"
-      :close-on-click-modal="false"
-      title="请填写您的LLM信息"
-      :show-close="false"
-      width="30%"
-    >
-      <div>
-        <tiny-form ref="formRef" :model="createData" label-width="120px">
-          <tiny-form-item label="LLM URL" prop="llmUrl" :rules="{ required: true, messages: '必填', trigger: 'blur' }">
-            <tiny-input v-model="createData.llmUrl"></tiny-input>
-          </tiny-form-item>
-          <tiny-form-item
-            label="API Key"
-            prop="llmApiKey"
-            :rules="{ required: true, messages: '必填', trigger: 'blur' }"
-          >
-            <tiny-input v-model="createData.llmApiKey"></tiny-input>
-          </tiny-form-item>
-          <tiny-form-item>
-            <tiny-button @click="submit" type="primary">保存</tiny-button>
-          </tiny-form-item>
-        </tiny-form>
-      </div>
-    </tiny-dialog-box>
+  <div>
+    <router-view />
+    <TinyRemoter sessionId="78b66563-95c0-4839-8007-e8af634dd657" />
   </div>
 </template>
 
 <script setup lang="ts">
-import '@opentiny/icons/style/all.css'
-import TinyRobotChat from './components/tiny-robot-chat.vue'
-import AntDesignX from './components/ant-design-x.vue'
-import { showTinyRobot } from './composable/utils'
-import { IconAi } from '@opentiny/tiny-robot-svgs'
-import { provide, reactive, ref } from 'vue'
-import { $local, isEnvLLMDefined, isLocalLLMDefined } from './composable/utils'
-import { createMessageChannelServerTransport } from '@opentiny/next-sdk'
+import { TinyRemoter } from '@opentiny/next-remoter'
+import { WebMcpClient, createMessageChannelPairTransport } from '@opentiny/next-sdk'
+import type { Transport } from '@opentiny/next-sdk'
+import { AGENT_ROOT } from './const'
+import { provide } from 'vue'
 
-// 获取当前路由信息
-const isAntDesignX = location.href.includes('ant')
+const [serverTransport, clientTransport] = createMessageChannelPairTransport()
 
-const boxVisibility = ref(false)
-const formRef = ref()
-const createData = reactive({
-  llmUrl: $local.llmUrl || import.meta.env.VITE_LLM_URL,
-  llmApiKey: $local.llmApiKey || import.meta.env.VITE_LLM_API_KEY
-})
+// 定义 MCP Server 的能力
+const capabilities = {
+  prompts: { listChanged: true },
+  resources: { subscribe: true, listChanged: true },
+  tools: { listChanged: true },
+  completions: {},
+  logging: {}
+}
 
-const submit = () => {
-  formRef.value.validate().then(() => {
-    $local.llmUrl = createData.llmUrl
-    $local.llmApiKey = createData.llmApiKey
-    boxVisibility.value = false
-    window.location.reload()
+const mcpServer: {
+  transport: Transport | null
+  capabilities: Record<string, any>
+} = {
+  transport: serverTransport,
+  capabilities
+}
+
+provide('mcpServer', mcpServer)
+
+serverTransport.onerror = (error) => {
+  console.error(`ServerTransport error:`, error)
+}
+
+const createProxyTransport = async () => {
+  const client = new WebMcpClient(
+    { name: 'mcp-web-client', version: '1.0.0' },
+    { capabilities: { roots: { listChanged: true }, sampling: {}, elicitation: {} } }
+  )
+  // @ts-expect-error client
+  window.client = client
+  await client.connect(clientTransport)
+
+  const { sessionId } = await client.connect({
+    url: AGENT_ROOT + 'mcp',
+    sessionId: '78b66563-95c0-4839-8007-e8af634dd657',
+    agent: true,
+    onError: (error: Error) => {
+      console.error('Connect proxy error:', error)
+    }
   })
+
+  console.log('sessionId', sessionId)
+
+  window.addEventListener('pagehide', client.onPagehide)
 }
 
-if (!isEnvLLMDefined && !isLocalLLMDefined) {
-  boxVisibility.value = true
-}
-
-const transport = createMessageChannelServerTransport('endpoint')
-transport.onerror = (error) => {
-  console.error(`ECS MessageChannel ServerTransport error:`, error)
-}
-
-provide('transport', transport)
+createProxyTransport()
 </script>
 
 <style scoped>
