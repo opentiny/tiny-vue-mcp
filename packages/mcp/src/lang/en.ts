@@ -638,6 +638,230 @@ export default {
       setValues: 'Set selected values',
       selectAll: 'Select all items',
       clearSelection: 'Clear selection'
+    },
+    colorSelectPanel: {
+      description: 'Color select panel component tool set',
+      getColor: 'Get selected color',
+      setColor: 'Set color',
+      open: 'Open panel'
+    },
+    company: {
+      description: 'Company selector tool set',
+      getCompany: 'Get current company',
+      setCompany: 'Set company'
+    },
+    country: {
+      description: 'Country selector tool set',
+      getCountry: 'Get selected country',
+      setCountry: 'Set country'
+    },
+    crop: {
+      description: 'Image crop tool set',
+      getImage: 'Get original image',
+      setImage: 'Set image to crop',
+      crop: 'Execute crop operation'
+    },
+    currency: {
+      description: 'Currency tool set',
+      getValue: 'Get currency value',
+      setValue: 'Set currency value'
+    },
+    dept: {
+      description: 'Department selector tool set',
+      getDept: 'Get current department',
+      setDept: 'Set department'
+    },
+    dialogSelect: {
+      description: 'Dialog select tool set',
+      open: 'Open dialog',
+      close: 'Close dialog',
+      getSelected: 'Get selected items'
+    },
+    dropRoles: {
+      description: 'Role dropdown tool set',
+      getSelected: 'Get selected roles',
+      setSelected: 'Set selected roles'
+    },
+    dropTimes: {
+      description: 'Time dropdown tool set',
+      getTime: 'Get selected time',
+      setTime: 'Set time'
+    },
+    espace: {
+      description: 'Enterprise space tool set',
+      getInformation: 'Get space information',
+      setInformation: 'Set space information'
+    },
+    exception: {
+      description: 'Exception display tool set',
+      getCode: 'Get exception code',
+      setCode: 'Set exception code'
+    },
+    fallMenu: {
+      description: 'Falldown menu tool set',
+      open: 'Open menu',
+      close: 'Close menu'
+    },
+    floatButton: {
+      description: 'Floating button tool set',
+      show: 'Show button',
+      hide: 'Hide button',
+      click: 'Click button'
+    },
+    floatbar: {
+      description: 'Floatbar tool set',
+      position: 'Set position',
+      getPosition: 'Get current position'
+    },
+    fluentEditor: {
+      description: 'Fluent editor tool set',
+      getContent: 'Get editor content',
+      setContent: 'Set editor content'
+    },
+    fullscreen: {
+      description: 'Fullscreen tool set',
+      enter: 'Enter fullscreen',
+      exit: 'Exit fullscreen'
+    },
+    gridSelect: {
+      description: 'Grid select dialog tool set',
+      open: 'Open grid dialog',
+      getSelected: 'Get selected rows'
+    },
+    guide: {
+      description: 'Guide tool set',
+      start: 'Start guide',
+      next: 'Go to next step'
+    },
+    hrapprover: {
+      description: 'HR approver selector tool set',
+      getApprovers: 'Get approver list',
+      addApprover: 'Add approver'
+    },
+    infiniteScroll: {
+      description: 'Infinite scroll tool set',
+      loadMore: 'Load more items',
+      reset: 'Reset scroll'
+    },
+    ipAddress: {
+      description: 'IP address input tool set',
+      getAddress: 'Get IP address',
+      setAddress: 'Set IP address'
+    },
+    linkMenu: {
+      description: 'Link menu tool set',
+      getItems: 'Get links list',
+      addItem: 'Add link'
+    },
+    locales: {
+      description: 'Localization tool set',
+      getCurrentLocale: 'Get current locale',
+      setLocale: 'Set locale'
+    },
+    logonUser: {
+      description: 'Logon user tool set',
+      getUser: 'Get current user',
+      setUser: 'Set user'
+    },
+    logout: {
+      description: 'Logout tool set',
+      logout: 'Execute logout'
+    },
+    milestone: {
+      description: 'Milestone tool set',
+      getCurrent: 'Get current milestone',
+      setCurrent: 'Set current milestone'
+    },
+    notify: {
+      description: 'Notifications tool set',
+      show: 'Show notification',
+      close: 'Close notification'
+    },
+    numberAnimation: {
+      description: 'Number animation tool set',
+      start: 'Start animation',
+      stop: 'Stop animation'
+    },
+    numeric: {
+      description: 'Numeric input tool set',
+      getValue: 'Get numeric value',
+      setValue: 'Set numeric value'
+    },
+    popUpload: {
+      description: 'Popup upload tool set',
+      upload: 'Upload file',
+      getFiles: 'Get uploaded files'
+    },
+    popeditor: {
+      description: 'Popup editor tool set',
+      open: 'Open editor',
+      close: 'Close editor'
+    },
+    qrCode: {
+      description: 'QR code tool set',
+      generate: 'Generate QR code',
+      getCode: 'Get QR code'
+    },
+    roles: {
+      description: 'Role selection tool set',
+      getSelected: 'Get selected roles',
+      setSelected: 'Set selected roles'
+    },
+    selectWrapper: {
+      description: 'Select wrapper tool set',
+      getValue: 'Get value',
+      setValue: 'Set value'
+    },
+    tagGroup: {
+      description: 'Tag group tool set',
+      getTags: 'Get tag list',
+      addTag: 'Add tag'
+    },
+    textPopup: {
+      description: 'Text popup tool set',
+      show: 'Show popup',
+      hide: 'Hide popup'
+    },
+    timeLine: {
+      description: 'Timeline tool set',
+      getItems: 'Get timeline items',
+      addItem: 'Add timeline item'
+    },
+    toggleMenu: {
+      description: 'Toggle menu tool set',
+      toggle: 'Toggle menu',
+      isOpen: 'Check menu state'
+    },
+    user: {
+      description: 'User selection tool set',
+      getUser: 'Get current user',
+      setUser: 'Set user'
+    },
+    userAccount: {
+      description: 'User account tool set',
+      getAccount: 'Get account',
+      setAccount: 'Set account'
+    },
+    userContact: {
+      description: 'User contact tool set',
+      getContact: 'Get contact info',
+      setContact: 'Set contact info'
+    },
+    userHead: {
+      description: 'User avatar tool set',
+      getAvatar: 'Get avatar',
+      setAvatar: 'Set avatar'
+    },
+    userLink: {
+      description: 'User link tool set',
+      getLink: 'Get link',
+      setLink: 'Set link'
+    },
+    wizard: {
+      description: 'Wizard tool set',
+      getCurrentStep: 'Get current step',
+      nextStep: 'Go to next step',
+      prevStep: 'Go to previous step'
     }
   }
 }

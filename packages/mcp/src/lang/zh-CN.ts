@@ -627,6 +627,230 @@ export default {
       setValues: '设置选中的值',
       selectAll: '选中所有项',
       clearSelection: '清除选中'
+    },
+    colorSelectPanel: {
+      description: '颜色选择面板组件相关工具集合',
+      getColor: '获取选中颜色',
+      setColor: '设置颜色',
+      open: '打开面板'
+    },
+    company: {
+      description: '公司选择相关工具集合',
+      getCompany: '获取当前公司',
+      setCompany: '设置公司'
+    },
+    country: {
+      description: '国家选择相关工具集合',
+      getCountry: '获取选中国家',
+      setCountry: '设置国家'
+    },
+    crop: {
+      description: '图片裁剪相关工具集合',
+      getImage: '获取原始图片',
+      setImage: '设置要裁剪的图片',
+      crop: '执行裁剪操作'
+    },
+    currency: {
+      description: '货币相关工具集合',
+      getValue: '获取货币值',
+      setValue: '设置货币值'
+    },
+    dept: {
+      description: '部门选择相关工具集合',
+      getDept: '获取当前部门',
+      setDept: '设置部门'
+    },
+    dialogSelect: {
+      description: '对话框选择相关工具集合',
+      open: '打开对话框',
+      close: '关闭对话框',
+      getSelected: '获取选中项'
+    },
+    dropRoles: {
+      description: '角色下拉选择相关工具集合',
+      getSelected: '获取选中角色',
+      setSelected: '设置选中角色'
+    },
+    dropTimes: {
+      description: '时间下拉选择相关工具集合',
+      getTime: '获取选中时间',
+      setTime: '设置时间'
+    },
+    espace: {
+      description: '企业空间相关工具集合',
+      getInformation: '获取空间信息',
+      setInformation: '设置空间信息'
+    },
+    exception: {
+      description: '异常提示相关工具集合',
+      getCode: '获取异常代码',
+      setCode: '设置异常代码'
+    },
+    fallMenu: {
+      description: '下拉菜单相关工具集合',
+      open: '打开菜单',
+      close: '关闭菜单'
+    },
+    floatButton: {
+      description: '浮动按钮相关工具集合',
+      show: '显示按钮',
+      hide: '隐藏按钮',
+      click: '点击按钮'
+    },
+    floatbar: {
+      description: '浮动条相关工具集合',
+      position: '设置位置',
+      getPosition: '获取当前位置'
+    },
+    fluentEditor: {
+      description: 'Fluent编辑器相关工具集合',
+      getContent: '获取编辑器内容',
+      setContent: '设置编辑器内容'
+    },
+    fullscreen: {
+      description: '全屏相关工具集合',
+      enter: '进入全屏',
+      exit: '退出全屏'
+    },
+    gridSelect: {
+      description: '表格选择相关工具集合',
+      open: '打开表格对话框',
+      getSelected: '获取选中行'
+    },
+    guide: {
+      description: '引导相关工具集合',
+      start: '开始引导',
+      next: '下一步'
+    },
+    hrapprover: {
+      description: '审批人选择相关工具集合',
+      getApprovers: '获取审批人列表',
+      addApprover: '添加审批人'
+    },
+    infiniteScroll: {
+      description: '无限滚动相关工具集合',
+      loadMore: '加载更多',
+      reset: '重置滚动'
+    },
+    ipAddress: {
+      description: 'IP地址相关工具集合',
+      getAddress: '获取IP地址',
+      setAddress: '设置IP地址'
+    },
+    linkMenu: {
+      description: '链接菜单相关工具集合',
+      getItems: '获取链接列表',
+      addItem: '添加链接'
+    },
+    locales: {
+      description: '本地化相关工具集合',
+      getCurrentLocale: '获取当前语言',
+      setLocale: '设置语言'
+    },
+    logonUser: {
+      description: '登录用户相关工具集合',
+      getUser: '获取当前用户',
+      setUser: '设置用户'
+    },
+    logout: {
+      description: '退出登录相关工具集合',
+      logout: '执行退出登录'
+    },
+    milestone: {
+      description: '里程碑相关工具集合',
+      getCurrent: '获取当前里程碑',
+      setCurrent: '设置当前里程碑'
+    },
+    notify: {
+      description: '通知相关工具集合',
+      show: '显示通知',
+      close: '关闭通知'
+    },
+    numberAnimation: {
+      description: '数字动画相关工具集合',
+      start: '开始动画',
+      stop: '停止动画'
+    },
+    numeric: {
+      description: '数字输入相关工具集合',
+      getValue: '获取数值',
+      setValue: '设置数值'
+    },
+    popUpload: {
+      description: '弹窗上传相关工具集合',
+      upload: '上传文件',
+      getFiles: '获取已上传文件'
+    },
+    popeditor: {
+      description: '弹窗编辑器相关工具集合',
+      open: '打开编辑器',
+      close: '关闭编辑器'
+    },
+    qrCode: {
+      description: '二维码相关工具集合',
+      generate: '生成二维码',
+      getCode: '获取二维码'
+    },
+    roles: {
+      description: '角色选择相关工具集合',
+      getSelected: '获取选中角色',
+      setSelected: '设置选中角色'
+    },
+    selectWrapper: {
+      description: '选择器包装相关工具集合',
+      getValue: '获取值',
+      setValue: '设置值'
+    },
+    tagGroup: {
+      description: '标签组相关工具集合',
+      getTags: '获取标签列表',
+      addTag: '添加标签'
+    },
+    textPopup: {
+      description: '文本弹窗相关工具集合',
+      show: '显示弹窗',
+      hide: '隐藏弹窗'
+    },
+    timeLine: {
+      description: '时间线相关工具集合',
+      getItems: '获取时间线项',
+      addItem: '添加时间线项'
+    },
+    toggleMenu: {
+      description: '切换菜单相关工具集合',
+      toggle: '切换菜单',
+      isOpen: '检查菜单状态'
+    },
+    user: {
+      description: '用户选择相关工具集合',
+      getUser: '获取当前用户',
+      setUser: '设置用户'
+    },
+    userAccount: {
+      description: '用户账号相关工具集合',
+      getAccount: '获取账号',
+      setAccount: '设置账号'
+    },
+    userContact: {
+      description: '用户联系方式相关工具集合',
+      getContact: '获取联系方式',
+      setContact: '设置联系方式'
+    },
+    userHead: {
+      description: '用户头像相关工具集合',
+      getAvatar: '获取头像',
+      setAvatar: '设置头像'
+    },
+    userLink: {
+      description: '用户链接相关工具集合',
+      getLink: '获取链接',
+      setLink: '设置链接'
+    },
+    wizard: {
+      description: '向导相关工具集合',
+      getCurrentStep: '获取当前步骤',
+      nextStep: '下一步',
+      prevStep: '上一步'
     }
   }
 }

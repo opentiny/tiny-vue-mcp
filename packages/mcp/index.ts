@@ -101,6 +101,50 @@ import { getSplitConfig } from './src/split'
 import { getStickyConfig } from './src/sticky'
 import { getCheckboxButtonConfig } from './src/checkbox-button'
 import { getCheckboxGroupConfig } from './src/checkbox-group'
+import { getColorSelectPanelConfig } from './src/color-select-panel'
+import { getCompanyConfig } from './src/company'
+import { getCountryConfig } from './src/country'
+import { getCropConfig } from './src/crop'
+import { getCurrencyConfig } from './src/currency'
+import { getDeptConfig } from './src/dept'
+import { getDialogSelectConfig } from './src/dialog-select'
+import { getDropRolesConfig } from './src/drop-roles'
+import { getDropTimesConfig } from './src/drop-times'
+import { getEspaceConfig } from './src/espace'
+import { getExceptionConfig } from './src/exception'
+import { getFallMenuConfig } from './src/fall-menu'
+import { getFloatButtonConfig } from './src/float-button'
+import { getFloatbarConfig } from './src/floatbar'
+import { getFluentEditorConfig } from './src/fluent-editor'
+import { getFullscreenConfig } from './src/fullscreen'
+import { getGridSelectConfig } from './src/grid-select'
+import { getGuideConfig } from './src/guide'
+import { getHrapproverConfig } from './src/hrapprover'
+import { getInfiniteScrollConfig } from './src/infinite-scroll'
+import { getIpAddressConfig } from './src/ip-address'
+import { getLinkMenuConfig } from './src/link-menu'
+import { getLocalesConfig } from './src/locales'
+import { getLogonUserConfig } from './src/logon-user'
+import { getLogoutConfig } from './src/logout'
+import { getMilestoneConfig } from './src/milestone'
+import { getNotifyConfig } from './src/notify'
+import { getNumberAnimationConfig } from './src/number-animation'
+import { getNumericConfig } from './src/numeric'
+import { getPopUploadConfig } from './src/pop-upload'
+import { getPopeditorConfig } from './src/popeditor'
+import { getQrCodeConfig } from './src/qr-code'
+import { getRolesConfig } from './src/roles'
+import { getSelectWrapperConfig } from './src/select-wrapper'
+import { getTagGroupConfig } from './src/tag-group'
+import { getTextPopupConfig } from './src/text-popup'
+import { getTimeLineConfig } from './src/time-line'
+import { getToggleMenuConfig } from './src/toggle-menu'
+import { getUserConfig } from './src/user'
+import { getUserAccountConfig } from './src/user-account'
+import { getUserContactConfig } from './src/user-contact'
+import { getUserHeadConfig } from './src/user-head'
+import { getUserLinkConfig } from './src/user-link'
+import { getWizardConfig } from './src/wizard'
 
 export const createMcpTools = (
   instance: any,
@@ -215,7 +259,51 @@ export const getTinyVueMcpConfig = ({ t }: { t?: ((path: string) => string) | nu
       Split: getSplitConfig(),
       Sticky: getStickyConfig(),
       CheckboxButton: getCheckboxButtonConfig(),
-      CheckboxGroup: getCheckboxGroupConfig()
+      CheckboxGroup: getCheckboxGroupConfig(),
+      ColorSelectPanel: getColorSelectPanelConfig(),
+      Company: getCompanyConfig(),
+      Country: getCountryConfig(),
+      Crop: getCropConfig(),
+      Currency: getCurrencyConfig(),
+      Dept: getDeptConfig(),
+      DialogSelect: getDialogSelectConfig(),
+      DropRoles: getDropRolesConfig(),
+      DropTimes: getDropTimesConfig(),
+      Espace: getEspaceConfig(),
+      Exception: getExceptionConfig(),
+      FallMenu: getFallMenuConfig(),
+      FloatButton: getFloatButtonConfig(),
+      Floatbar: getFloatbarConfig(),
+      FluentEditor: getFluentEditorConfig(),
+      Fullscreen: getFullscreenConfig(),
+      GridSelect: getGridSelectConfig(),
+      Guide: getGuideConfig(),
+      Hrapprover: getHrapproverConfig(),
+      InfiniteScroll: getInfiniteScrollConfig(),
+      IpAddress: getIpAddressConfig(),
+      LinkMenu: getLinkMenuConfig(),
+      Locales: getLocalesConfig(),
+      LogonUser: getLogonUserConfig(),
+      Logout: getLogoutConfig(),
+      Milestone: getMilestoneConfig(),
+      Notify: getNotifyConfig(),
+      NumberAnimation: getNumberAnimationConfig(),
+      Numeric: getNumericConfig(),
+      PopUpload: getPopUploadConfig(),
+      Popeditor: getPopeditorConfig(),
+      QrCode: getQrCodeConfig(),
+      Roles: getRolesConfig(),
+      SelectWrapper: getSelectWrapperConfig(),
+      TagGroup: getTagGroupConfig(),
+      TextPopup: getTextPopupConfig(),
+      TimeLine: getTimeLineConfig(),
+      ToggleMenu: getToggleMenuConfig(),
+      User: getUserConfig(),
+      UserAccount: getUserAccountConfig(),
+      UserContact: getUserContactConfig(),
+      UserHead: getUserHeadConfig(),
+      UserLink: getUserLinkConfig(),
+      Wizard: getWizardConfig()
     }
   }
 }
