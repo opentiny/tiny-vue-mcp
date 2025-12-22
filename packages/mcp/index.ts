@@ -307,3 +307,5 @@ export const getTinyVueMcpConfig = ({ t }: { t?: ((path: string) => string) | nu
     }
   }
 }
+
+export { zhCN, enUS }
