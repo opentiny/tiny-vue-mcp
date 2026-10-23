@@ -2,9 +2,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { z } from 'zod'
 import { initializeBuiltinWebMCP } from '@opentiny/next-sdk/core'
 import { defineTool } from '../defineTool'
+import { createMcpTools, getTinyVueMcpConfig } from '../../../index'
 
 vi.mock('@opentiny/next-sdk/core', () => ({ initializeBuiltinWebMCP: vi.fn() }))
-beforeEach(() => vi.mocked(initializeBuiltinWebMCP).mockReset())
+beforeEach(() => {
+  vi.mocked(initializeBuiltinWebMCP).mockReset()
+})
 afterEach(() => vi.unstubAllGlobals())
 
 const business = { id: 'test-grid', description: 'Test grid' }
@@ -49,6 +52,25 @@ describe('WebMCP component tool adapter', () => {
     expect(componentMcpConfig.cb).not.toHaveBeenCalled()
   })
 
+  it.each([undefined, {}])(
+    'allows empty arguments for parameterless tools with paramsSchema %j',
+    async (paramsSchema) => {
+      const registerTool = vi.fn()
+      vi.stubGlobal('document', { modelContext: { registerTool } })
+      const componentMcpConfig = { ...makeConfig(), paramsSchema }
+      const instance = {}
+      defineTool({ instance, business, componentMcpConfig })
+      const [tool] = registerTool.mock.calls[0]
+
+      expect(tool.inputSchema).not.toHaveProperty('minProperties')
+      expect(tool.inputSchema).toMatchObject({ type: 'object', properties: {}, additionalProperties: false })
+      expect(await tool.execute({})).toEqual({ content: [{ type: 'text', text: 'rows' }] })
+      expect(componentMcpConfig.cb).toHaveBeenCalledWith(instance, {})
+      await expect(tool.execute({ unexpected: true })).rejects.toThrow()
+      expect(componentMcpConfig.cb).toHaveBeenCalledOnce()
+    }
+  )
+
   it('does not initialize browser APIs during SSR', () => {
     vi.stubGlobal('document', undefined)
     expect(defineTool({ instance: {}, business, componentMcpConfig: makeConfig() })).toBeUndefined()
@@ -62,6 +84,7 @@ describe('WebMCP component tool adapter', () => {
     vi.mocked(initializeBuiltinWebMCP).mockImplementation(() => {
       browserDocument.modelContext = { registerTool }
     })
+    expect(getTinyVueMcpConfig().components.Grid).toBeDefined()
     defineTool({ instance: {}, business, componentMcpConfig: makeConfig() })
     defineTool({ instance: {}, business: { ...business, id: 'second-grid' }, componentMcpConfig: makeConfig() })
     expect(initializeBuiltinWebMCP).toHaveBeenCalledOnce()
@@ -81,6 +104,34 @@ describe('WebMCP component tool adapter', () => {
       browserDocument.modelContext = { registerTool: vi.fn() }
     })
     expect(() => defineTool({ instance: {}, business, componentMcpConfig: makeConfig() })).not.toThrow()
+    expect(initializeBuiltinWebMCP).toHaveBeenCalledTimes(2)
+  })
+
+  it.each(['missing-context', 'throws'])('keeps explicit-server setup working when initialization %s', (failure) => {
+    vi.stubGlobal('document', {})
+    if (failure === 'throws') {
+      vi.mocked(initializeBuiltinWebMCP).mockImplementation(() => {
+        throw new Error('Polyfill unavailable')
+      })
+    }
+    const config = getTinyVueMcpConfig()
+    const remove = vi.fn()
+    const registerTool = vi.fn(() => ({ remove }))
+    const server = { registerTool } as unknown as NonNullable<Parameters<typeof defineTool>[0]['server']>
+    const dispose = createMcpTools({}, { business, server }, config.components.Grid)
+
+    expect(registerTool).toHaveBeenCalledWith(
+      'test-grid_grid_component_tools',
+      expect.objectContaining({ inputSchema: config.components.Grid.paramsSchema }),
+      expect.any(Function)
+    )
+    expect(initializeBuiltinWebMCP).toHaveBeenCalledOnce()
+    dispose?.()
+    expect(remove).toHaveBeenCalledOnce()
+    // 配置获取允许回退，真正选择 WebMCP 注册时仍重试并报告初始化错误。
+    expect(() => createMcpTools({}, { business }, config.components.Grid)).toThrow(
+      failure === 'throws' ? 'Polyfill unavailable' : 'Failed to initialize'
+    )
     expect(initializeBuiltinWebMCP).toHaveBeenCalledTimes(2)
   })
 

@@ -67,12 +67,13 @@ export const defineTool = ({ componentMcpConfig, instance, server, business }: D
   const modelContext = ensureWebMcp()
   if (!modelContext) return
 
-  const schema = z
-    .object(paramsSchema)
-    .strict()
-    .refine((args) => Object.keys(args).length > 0, {
-      message: 'At least one component operation is required'
-    })
+  const hasOperations = Object.keys(paramsSchema).length > 0
+  const objectSchema = z.object(paramsSchema).strict()
+  const schema = hasOperations
+    ? objectSchema.refine((args) => Object.keys(args).length > 0, {
+        message: 'At least one component operation is required'
+      })
+    : objectSchema
   const controller = new AbortController()
   const registration = modelContext.registerTool(
     {
@@ -80,7 +81,10 @@ export const defineTool = ({ componentMcpConfig, instance, server, business }: D
       title: name,
       description,
       // WebMCP 接收 JSON Schema，而非 MCP Server 接收的 Zod shape。
-      inputSchema: { ...zodToJsonSchema(schema, { $refStrategy: 'none' }), minProperties: 1 },
+      inputSchema: {
+        ...zodToJsonSchema(schema, { $refStrategy: 'none' }),
+        ...(hasOperations ? { minProperties: 1 } : {})
+      },
       execute: async (args: Record<string, unknown>) => cb(await schema.parseAsync(args))
     },
     { signal: controller.signal }

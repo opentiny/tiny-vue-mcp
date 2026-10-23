@@ -155,7 +155,12 @@ export const createMcpTools = (
 }
 
 export const getTinyVueMcpConfig = ({ t }: { t?: ((path: string) => string) | null } = {}) => {
-  ensureWebMcp()
+  try {
+    ensureWebMcp()
+  } catch {
+    // 配置也用于不依赖浏览器 WebMCP 的显式 Server 模式。
+    // 未传 server 时，工具注册会重试初始化并报告失败。
+  }
   if (i18n && t) {
     i18n.t = t
   }
