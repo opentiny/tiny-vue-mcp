@@ -1,4 +1,4 @@
-import { defineTool } from './src/utils/defineTool'
+import { defineTool, ensureWebMcp } from './src/utils/defineTool'
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import type { Business, ComponentMcpConfig } from './src/utils/defineTool'
 import zhCN from './src/lang/zh-CN'
@@ -148,13 +148,19 @@ import { getWizardConfig } from './src/wizard'
 
 export const createMcpTools = (
   instance: any,
-  { server, business }: { server: McpServer; business: Business },
+  { server, business }: { server?: McpServer; business: Business },
   componentMcpConfig: ComponentMcpConfig
 ) => {
-  defineTool({ business, componentMcpConfig, instance, server })
+  return defineTool({ business, componentMcpConfig, instance, server })
 }
 
 export const getTinyVueMcpConfig = ({ t }: { t?: ((path: string) => string) | null } = {}) => {
+  try {
+    ensureWebMcp()
+  } catch {
+    // 配置也用于不依赖浏览器 WebMCP 的显式 Server 模式。
+    // 未传 server 时，工具注册会重试初始化并报告失败。
+  }
   if (i18n && t) {
     i18n.t = t
   }

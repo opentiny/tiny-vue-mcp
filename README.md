@@ -2,6 +2,39 @@
 
 这是一个提供TinyVue组件库MCP配置的monorepo项目。
 
+## WebMCP 初始化
+
+`getTinyVueMcpConfig()` 会在浏览器中自动调用 next-sdk 的 `initializeBuiltinWebMCP()`，注入 `document.modelContext` Polyfill 和桥接能力。应用无需创建 MCP Server / Client，也无需自行初始化 Polyfill：
+
+```ts
+import { registerMcpConfig } from '@opentiny/vue-common'
+import { createMcpTools, getTinyVueMcpConfig } from '@opentiny/tiny-vue-mcp'
+
+registerMcpConfig(getTinyVueMcpConfig(), createMcpTools)
+```
+
+组件的 `tiny_mcp_config` 只需传 `business` 信息。库内 `src/utils/defineTool.ts` 的 `ensureWebMcp()` 每个 document 仅初始化一次，SSR 跳过，初始化失败允许重试；未传 `server` 的工具注册也会确保运行环境就绪。显式传入 `server` 的旧注册方式仍兼容。
+
+获取配置时会尝试初始化 WebMCP，但初始化失败不会阻断配置返回和显式 Server 模式。真正使用 WebMCP 注册工具时会重试初始化，并报告仍然存在的错误。
+
+`createMcpTools()` 返回清理函数：WebMCP 分支通过 `AbortController` 注销，旧 Server 分支调用工具的 `remove()`。组件集成层需要在卸载时调用返回的清理函数；这需要 TinyVue 的 `vue-common` 配套支持，本仓库不会自动挂接 Vue 生命周期。
+
+有操作定义的工具要求至少传入一个操作；未提供 `paramsSchema` 或其值为 `{}` 的无参数工具允许传入 `{}`。两者均拒绝未定义的参数字段。
+
+WebMCP 使用 JSON Schema 和 `execute` 回调注册工具，库内将已有 Zod 参数定义转换成 JSON Schema，并在执行前校验参数。调用方通过 `document.modelContext.getTools()` 获取工具对象，再执行：
+
+```ts
+const tools = await document.modelContext.getTools()
+const tool = tools.find((item) => item.name === 'demo-grid_grid_component_tools')
+const rawResult = await document.modelContext.executeTool(tool, JSON.stringify({ getTableData: true }))
+```
+
+调用者应使用发现接口返回的工具对象，并按 WebMCP 返回格式解码结果。本库负责工具注册和执行回调，`executeTool()` 由页面、Agent 或其他工具使用方调用。
+
+运行适配层测试：`pnpm --filter @opentiny/tiny-vue-mcp test`。
+
+参考：[initializeBuiltinWebMCP 官方文档](https://docs.opentiny.design/next-sdk/webmcp-sdk/global-tools.html)。
+
 ## 项目结构
 
 ```text

@@ -13,13 +13,17 @@
     "module": "dist/index.js"
   },
   "scripts": {
-    "build": "vite build"
+    "build": "vite build",
+    "test": "vitest run"
   },
   "dependencies": {
+    "@opentiny/next-sdk": "0.4.11",
     "zod": "^3.25.23",
+    "zod-to-json-schema": "^3.25.2",
     "@modelcontextprotocol/sdk": "1.23.0"
   },
   "devDependencies": {
+    "vitest": "^3.2.7",
     "vite": "^6.3.1",
     "vite-plugin-dts": "^4.5.4"
   }
