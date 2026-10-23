@@ -1,4 +1,4 @@
-import { defineTool } from './src/utils/defineTool'
+import { defineTool, ensureWebMcp } from './src/utils/defineTool'
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import type { Business, ComponentMcpConfig } from './src/utils/defineTool'
 import zhCN from './src/lang/zh-CN'
@@ -148,13 +148,14 @@ import { getWizardConfig } from './src/wizard'
 
 export const createMcpTools = (
   instance: any,
-  { server, business }: { server: McpServer; business: Business },
+  { server, business }: { server?: McpServer; business: Business },
   componentMcpConfig: ComponentMcpConfig
 ) => {
-  defineTool({ business, componentMcpConfig, instance, server })
+  return defineTool({ business, componentMcpConfig, instance, server })
 }
 
 export const getTinyVueMcpConfig = ({ t }: { t?: ((path: string) => string) | null } = {}) => {
+  ensureWebMcp()
   if (i18n && t) {
     i18n.t = t
   }

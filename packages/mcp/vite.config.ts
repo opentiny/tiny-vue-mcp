@@ -14,7 +14,7 @@ export default defineConfig(() => {
         entry: './index.ts'
       },
       rollupOptions: {
-        external: ['zod'],
+        external: ['zod', 'zod-to-json-schema', '@opentiny/next-sdk/core'],
         input: ['index.ts'],
         output: [
           {
