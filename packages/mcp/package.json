@@ -4,6 +4,11 @@
   "description": "",
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/opentiny/tiny-vue-mcp.git",
+    "directory": "packages/mcp"
+  },
   "keywords": [],
   "main": "index.ts",
   "module": "index.ts",
