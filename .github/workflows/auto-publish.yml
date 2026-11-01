@@ -61,12 +61,14 @@ jobs:
 
       # 步骤8: 发布组件到NPM
       - name: Publish components
-        run: pnpm --filter @opentiny/tiny-vue-mcp publish --access=public --no-git-checks
+        run: pnpm --filter @opentiny/tiny-vue-mcp publish --tag alpha --access=public --no-git-checks
 
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.ref_name }}
           generate_release_notes: true
+          prerelease: true
+          make_latest: false
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
